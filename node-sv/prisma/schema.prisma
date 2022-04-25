@@ -1,11 +1,58 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id                        String @id @default(uuid())
+  name                      String
+  surname                   String
+  email                     String @unique
+  password                  String
+
+  @@map("users")
+  // user pode ter vários project [1,N]
+  projects                  Project[]
+}
+
+
+model Project {
+  id                        String @id @default(uuid())
+  name                      String
+  description               String
+  status                    Boolean @default(true) 
+  date_start                DateTime @default(now())
+  deadline                  DateTime?
+
+  //Relacionamento    -     [Project e Task]
+  user_project                     User @relation(fields: [user_id], references: [id])
+  user_id                   String 
+
+  // project pode ter vários tasks [1,N]
+  tasks                     Task[]
+
+ @@map("projects")
+}
+
+
+model Task {
+  id                        String @id @default(uuid())
+  name                      String
+  description               String
+  status                    Boolean @default(true)
+  date_start                DateTime @default(now())
+  deadline                  DateTime?
+
+  //Relacionamento    -     [Project e Task]
+  project_author            Project @relation(fields: [project_id], references: [id])
+  project_id                String
+
+
+  @@map("tasks")
 }

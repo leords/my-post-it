@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,49 +8,36 @@ datasource db {
 }
 
 model User {
-  id                        String @id @default(uuid())
-  name                      String
-  surname                   String
-  email                     String @unique
-  password                  String
+  id       String    @id @default(uuid())
+  name     String
+  email    String
+  password String
+  projects Project[]
 
   @@map("users")
-  // user pode ter vários project [1,N]
-  projects                  Project[]
 }
-
 
 model Project {
-  id                        String @id @default(uuid())
-  name                      String
-  description               String
-  status                    Boolean @default(true) 
-  date_start                DateTime @default(now())
-  deadline                  DateTime?
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  status      Boolean   @default(true)
+  date_start  DateTime  @default(now())
+  author      String
+  user        User      @relation(fields: [author], references: [id])
+  tasks       Task[]
 
-  //Relacionamento    -     [Project e Task]
-  user_project                     User @relation(fields: [user_id], references: [id])
-  user_id                   String 
-
-  // project pode ter vários tasks [1,N]
-  tasks                     Task[]
-
- @@map("projects")
+  @@map("projects")
 }
 
-
 model Task {
-  id                        String @id @default(uuid())
-  name                      String
-  description               String
-  status                    Boolean @default(true)
-  date_start                DateTime @default(now())
-  deadline                  DateTime?
-
-  //Relacionamento    -     [Project e Task]
-  project_author            Project @relation(fields: [project_id], references: [id])
-  project_id                String
-
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  status      Boolean   @default(true)
+  date_start  DateTime  @default(now())
+  project     String
+  author      Project   @relation(fields: [project], references: [id])
 
   @@map("tasks")
 }

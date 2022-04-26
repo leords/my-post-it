@@ -5,16 +5,16 @@ class ReadUserService {
         const queryAllUser = await prismaClient.user.findMany({
             take: 50,
             orderBy: {
-                date: "desc"
+                name: "desc"
             }
         });
         return queryAllUser
     }
 
-    async executeUnique(id_email: string) {
+    async executeUnique(id: string) {
         const queryUniqueUser = await prismaClient.user.findUnique({
             where: {
-                email: id_email,
+                id: id,
             },
         });
         return queryUniqueUser

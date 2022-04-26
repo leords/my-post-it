@@ -7,10 +7,9 @@ class UpdateProjectController {
         const {id} = request.body;
         const {name} = request.body;
         const {description} = request.body;
-        const {deadline} = request.body;
 
         const service = new UpdateProjectService();
-        const result = await service.execute(id, name, description, deadline);
+        const result = await service.execute(id, name, description);
 
         return response.json(result)
 

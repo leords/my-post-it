@@ -2,12 +2,12 @@ import prismaClient from "../../prisma";
 
 
 class CreateTaskService {
-    async execute(name:string, description:string, deadline:string){
+    async execute(project: string, name:string, description:string){
         const NewTask = prismaClient.task.create({
             data: {
+                project,
                 name, 
-                description,
-                deadline,
+                description
             },
         });
         return NewTask

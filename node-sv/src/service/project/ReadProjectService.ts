@@ -3,9 +3,9 @@ import prismaClient from "../../prisma";
 class ReadProjectService {
 
     async executeAll(id_project: string) {
-        const readProject = await prismaClient.project.findFirst({
+        const readProject = await prismaClient.project.findMany({
             where: {
-                id: id_project
+                author: id_project
             },
             orderBy: {
                 date_start: "desc"
@@ -15,9 +15,9 @@ class ReadProjectService {
     }
 
     async executeAllOff(id_project: string) {
-        const readProject = await prismaClient.project.findFirst({
+        const readProject = await prismaClient.project.findMany({
             where: {
-                id: id_project,
+                author: id_project,
                 status: false
             },
             orderBy: {
@@ -28,9 +28,9 @@ class ReadProjectService {
     }
 
     async executeAllOn(id_project: string) {
-        const readProject = await prismaClient.project.findFirst({
+        const readProject = await prismaClient.project.findMany({
             where: {
-                id: id_project,
+                author: id_project,
                 status: true
             },
             orderBy: {

@@ -1,17 +1,16 @@
 import prismaClient from "../../prisma";
 
 class CreateUserService {
-    async execute(name:string, sobrenome:string, email:string, password:string) {
-        const NewUser = await prismaClient.user.create({
-            data: {
+    async execute(name:string, email:string, password:string) {
+        const newUser = await prismaClient.user.create({
+            data: { 
                 name,
-                sobrenome,
                 email, 
                 password,  
             },
         });
 
-        return NewUser
+        return newUser
     }
 }
 

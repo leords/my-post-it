@@ -6,7 +6,7 @@
             where: {
                 id: id
             },
-            update: {
+            data: {
                 name: name_update
             }
           });
@@ -18,24 +18,12 @@
               where: {
                   id: id,
               },
-              update: {
+              data: {
                   description: update_description
               }
           });
           return taskUpdate
       }
-
-      async executeDeadline(id: string, update_deadline: string) {
-          const taskUpdate = await prismaClient.task.update({
-              where: {
-                  id: id,
-              },
-              update: {
-                  deadline: update_deadline
-              }
-          })
-      }
-
   }
 
   export { UpdateTaskService }

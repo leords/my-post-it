@@ -2,7 +2,6 @@
 CREATE TABLE "users" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
-    "surname" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL
 );
@@ -14,9 +13,8 @@ CREATE TABLE "projects" (
     "description" TEXT NOT NULL,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "date_start" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deadline" DATETIME,
-    "user_id" TEXT NOT NULL,
-    CONSTRAINT "projects_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "author" TEXT NOT NULL,
+    CONSTRAINT "projects_author_fkey" FOREIGN KEY ("author") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -26,10 +24,6 @@ CREATE TABLE "tasks" (
     "description" TEXT NOT NULL,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "date_start" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deadline" DATETIME,
-    "project_id" TEXT NOT NULL,
-    CONSTRAINT "tasks_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "project" TEXT NOT NULL,
+    CONSTRAINT "tasks_project_fkey" FOREIGN KEY ("project") REFERENCES "projects" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");

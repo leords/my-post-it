@@ -3,12 +3,12 @@ import { CreateTaskService } from "../../service/task/CreateTaskService";
 
 class CreateTaskController {
     async handle(request: Request, response: Response){
+        const {project} = request.body
         const {name} = request.body
         const {description} = request.body
-        const {deadline} = request.body
 
         const service = new CreateTaskService();
-        const result = await service.execute(name, description, deadline)
+        const result = await service.execute(project, name, description)
 
         return response.json(result)
     }

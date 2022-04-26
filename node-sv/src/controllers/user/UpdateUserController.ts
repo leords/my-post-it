@@ -14,17 +14,6 @@ class SearchUserController{
          return response.json(result)
     }
 
-
-    async handleEditSurname(response: Response, request: Request){
-         const {email} = request.body;
-         const {surname} = request.body;
-
-         const service = new UpdateUserService();
-         const result = await service.executeSurname(email, surname);
-
-         return response.json(result)
-    }
-
     async handleEditEmail(response: Response, request: Request){
         const {email} = request.body;
 

@@ -3,48 +3,36 @@ import prismaClient from "../../prisma";
 
 class UpdateUserService {
 
-    async executeName(id_email: string, name_update: string) {
+    async executeName(id: string, name_update: string) {
         const newUpdateUser = await prismaClient.user.update({
             where: {
-                email: id_email,
+                id: id,
             },
-            update: {
+            data: {
                 name: name_update
             },
         });
         return newUpdateUser
     }
 
-    async executeSurname(id_email: string, surname_update: string){
+    async executeEmail(id: string, email_update: string){
         const newUpdateUser = await prismaClient.user.update({
             where: {
-                email: id_email
+                id: id,
             },
-            update: {
-                surname: surname_update
-            },
-        });
-        return newUpdateUser
-    }
-
-    async executeEmail(id_email: string, email_update: string){
-        const newUpdateUser = await prismaClient.user.update({
-            where: {
-                email: id_email
-            },
-            update: {
+            data: {
                 email: email_update
             },
         });
         return newUpdateUser
     }
 
-    async executePassword(id_email: string, password_update: string){
+    async executePassword(id: string, password_update: string){
         const newUpdateUser = await prismaClient.user.update({
             where: {
-                email: id_email
+                id: id,
             },
-            update: {
+            data: {
                 password: password_update
             },
         });

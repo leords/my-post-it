@@ -15,29 +15,42 @@ import { UpdateUserController } from "./controllers/user/UpdateUserController";
 
 const router = Router();
 
-// Routes user.
-router.post('/new-user', new CreateUserController().handle) //ok
-router.get('/user-all', new ReadUserController().handleAll) //ok
-router.get('/user-unique', new ReadUserController().handleUnique) //ok
-router.post('/edit-user', new UpdateUserController().handleEditName) //ok
-router.post('/delete-user', new DeleteUserController().handle) //ok
+//ROUTES USER.
+router.post('/new-user', new CreateUserController().handle)
+router.post('/edit-user', new UpdateUserController().handleEditName)
+router.post('/delete-user', new DeleteUserController().handle)
+//Read Retorno
+router.get('/user-all', new ReadUserController().handleAll)
+router.get('/user-unique', new ReadUserController().handleUnique)
 
-// Routes task.
-router.post('/new-task', new CreateTaskController().handle) //ok
-router.post('/delete-task', new DeleteTaskController().handle) //ok
-router.get('/task-all', new ReadTaskController().handleAll) //ok
-router.get('/task-off', new ReadTaskController().handleAllOff) //ok
-router.get('/task-on', new ReadTaskController().handleAllOn) //ok
-router.get('/edit-task', new UpdateTaskController().handleEditStatusFalse) //ok
-router.get('/edit-task', new UpdateTaskController().handleEditStatusTrue) //ok
 
-// Routes project. - fazer o conhecimento de qual variavel teve alteração na route /project-update
+//ROUTES TASK.
+router.post('/new-task', new CreateTaskController().handle)
+router.post('/delete-task', new DeleteTaskController().handle)
+router.get('/edit-task', new UpdateTaskController().handleEditStatusFalse)
+router.get('/edit-task', new UpdateTaskController().handleEditStatusTrue)
+//Read Retorno
+router.get('/task-all', new ReadTaskController().handleAll)
+router.get('/task-off', new ReadTaskController().handleAllOff)
+router.get('/task-on', new ReadTaskController().handleAllOn)
+//Read Contagem
+router.post('count-all-task', new ReadTaskController().handleCountAll)
+router.post('count-off-task', new ReadTaskController().handleCountAllOff)
+router.post('count-on-task', new ReadTaskController().handleCountAllOn)
+
+
+//ROUTES PROJETC.
 router.post('/new-project', new CreateProjectController().handle)
 router.post('/delete-project', new DeleteProjectController().handle)
+router.post('/project-update', new UpdateProjectController().handle)
+//Read Retorno
 router.get('/project-all', new ReadProjectController().handleAll)
 router.get('/project-off', new ReadProjectController().handleAllOff)
 router.get('/project-on', new ReadProjectController().handleAllOn)
-router.post('/project-update', new UpdateProjectController().handle)
+//Read Contagem
+router.post('/count-all-project', new ReadProjectController().handleCountAll)
+router.post('/count-off-project', new ReadProjectController().handleCountAllOff)
+router.post('/count-on-project', new ReadProjectController().handleCountAllOn)
 
 
 

@@ -25,5 +25,6 @@ CREATE TABLE "tasks" (
     "status" BOOLEAN NOT NULL DEFAULT true,
     "date_start" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "project" TEXT NOT NULL,
+    "user" TEXT NOT NULL,
     CONSTRAINT "tasks_project_fkey" FOREIGN KEY ("project") REFERENCES "projects" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

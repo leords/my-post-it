@@ -6,9 +6,10 @@ class CreateTaskController {
         const {project} = request.body
         const {name} = request.body
         const {description} = request.body
+        const {user} = request.body
 
         const service = new CreateTaskService();
-        const result = await service.execute(project, name, description)
+        const result = await service.execute(project, name, description, user)
 
         return response.json(result)
     }

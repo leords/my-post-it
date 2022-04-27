@@ -38,6 +38,7 @@ model Task {
   date_start  DateTime  @default(now())
   project     String
   author      Project   @relation(fields: [project], references: [id])
+  user        String       
 
   @@map("tasks")
 }

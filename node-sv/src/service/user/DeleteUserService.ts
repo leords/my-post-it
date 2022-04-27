@@ -5,30 +5,21 @@ class DeleteUserService {
 
     async execute(id: string) {
 
-/*         // Pegando o id do projeto pelo id do usuário passado para ser deletado!
-
-        const idProject = await prismaClient.project.findFirst({
-            where: {
-                author: id
-            },
-            select: {
-                author: true
-            },
-        });
-
-        // deletando todas as tasks no projeto deste usuário
+        // Apagando todas as tasks no projeto com id deste usuário.
         const DeleteAlltask = await prismaClient.task.deleteMany({
             where: {
-                 project: idProject as any
+                 user: id
             },
         });
 
+        // Apagando todas os projetos com id deste usuário.
         const DeleteAlltProject = await prismaClient.project.deleteMany({
             where: {
                  author: id 
             },
-        }); */
+        }); 
 
+        // Apagando o usuário.
         const DeleteUser = await prismaClient.user.delete({
             where: {
                 id: id,

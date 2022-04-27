@@ -24,14 +24,22 @@
         return response.json(result)
     }
 
-    async handleEditDeadline(request: Request, response: Response) {
+    async handleEditStatusFalse(request: Request, response: Response) {
         const {id} = request.body;
-        const {deadline} = request.body;
 
         const service = new UpdateTaskService();
-        const result = await service.executeDeadline(id, deadline);
+        const result = await service.executeStatusforFalse(id);
 
         return response.json(result)
+    }
+
+    async handleEditStatusTrue(request: Request, response: Response) {
+      const {id} = request.body;
+
+      const service = new UpdateTaskService();
+      const result = await service.executeStatusforTrue(id);
+
+      return response.json(result)
     }
   }
 

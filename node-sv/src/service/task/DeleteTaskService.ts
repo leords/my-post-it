@@ -2,7 +2,7 @@ import prismaClient from "../../prisma";
 
 class DeleteTaskService {
     async execute(id: string) {
-        const DeleteTask = prismaClient.task.delete({
+        const DeleteTask = await prismaClient.task.delete({
             where: {
                 id: id,
             },

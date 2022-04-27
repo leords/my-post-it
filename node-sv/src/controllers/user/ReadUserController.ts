@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { ReadUserService } from "../../service/user/ReadUserService";
 
 class ReadUserController{
-    async handleAll(response: Response){
+    
+    async handleAll(request: Request, response: Response){
 
         const service = new ReadUserService();
         const result = await service.executeAll()
@@ -11,10 +12,10 @@ class ReadUserController{
     }
 
     async handleUnique(request: Request, response:Response){
-        const {email} = request.body;
+        const {id} = request.body;
 
         const service = new ReadUserService();
-        const result = await service.executeUnique(email);
+        const result = await service.executeUnique(id);
 
         return response.json(result)
     }

@@ -3,7 +3,7 @@ import { ReadTaskService } from "../../service/task/ReadTaskService";
 
 
 class ReadTaskController {
-    async handle(request: Request, response: Response) {
+    async handleAll(request: Request, response: Response) {
         const {id} = request.body;
 
         const service = new ReadTaskService();

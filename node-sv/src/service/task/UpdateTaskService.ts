@@ -24,6 +24,31 @@
           });
           return taskUpdate
       }
+
+      async executeStatusforFalse(id: string){
+        const taskUpdate = await prismaClient.task.update({
+            where: {
+                id: id,
+            },
+            data: {
+                status: false
+            }
+        });
+        return taskUpdate
+    }
+
+    async executeStatusforTrue(id: string){
+        const taskUpdate = await prismaClient.task.update({
+            where: {
+                id: id,
+            },
+            data: {
+                status: true
+            }
+        });
+        return taskUpdate
+    }
   }
+
 
   export { UpdateTaskService }

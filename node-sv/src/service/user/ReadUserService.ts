@@ -2,12 +2,8 @@ import prismaClient from "../../prisma";
 
 class ReadUserService {
     async executeAll() {
-        const queryAllUser = await prismaClient.user.findMany({
-            take: 50,
-            orderBy: {
-                name: "desc"
-            }
-        });
+        const queryAllUser = await prismaClient.user.findMany();
+        
         return queryAllUser
     }
 

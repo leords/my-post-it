@@ -3,36 +3,37 @@ import { UpdateUserService } from "../../service/user/UpdateUserService";
 
 
 
-class SearchUserController{
-    async handleEditName(response: Response, request: Request){
-         const {email} = request.body;
+class UpdateUserController{
+    async handleEditName(request: Request, response: Response){
+         const {id} = request.body;
          const {name} = request.body;
 
          const service = new UpdateUserService();
-         const result = await service.executeName(email, name);
+         const result = await service.executeName(id, name);
 
          return response.json(result)
     }
 
-    async handleEditEmail(response: Response, request: Request){
+    async handleEditEmail(request: Request, response: Response){
+        const {id} = request.body;
         const {email} = request.body;
 
         const service = new UpdateUserService();
-        const result = await service.executeEmail(email, email);
+        const result = await service.executeEmail(id, email);
 
         return response.json(result)
     }
 
-    async handleEditPassword(response: Response, request: Request){
-        const {email} = request.body;
+    async handleEditPassword(request: Request, response: Response){
+        const {id} = request.body;
         const {password} = request.body;
     
         const service = new UpdateUserService();
-        const result = await service.executePassword(email, password);
+        const result = await service.executePassword(id, password);
 
         return response.json(result)
     }
     
 }
 
-export {SearchUserController}
+export {UpdateUserController}

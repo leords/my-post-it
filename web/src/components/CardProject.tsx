@@ -1,89 +1,37 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export function CardProject() {
 
-    const navigate = useNavigate();
+export function CardProject(props: {tittle: string, description:string}) {
 
-    const authLogin = (() => {
-        navigate('/task')
-    })
+const navigate = useNavigate();
 
-    return(
-        <div className=" rounded-xl  w-full">
+const {id} = useParams();
+const test = '21ad14ad1da51'
 
-            <div className="flex flex-col items-center justify-between w-full pl-5 pr-5 h-20 mb-20 bg-indigo-400 rounded-md sm:flex-row ">
-                <h1 className="flex flex-row font-black text-2xl text-white sm:text-3xl">Projetos
-                    <h1 className="font-black text-2xl ml-1 text-black sm:text-3xl">.</h1>
-                </h1>
-                <button>
-                    <h1 className="mb-3 font-black text-4xl text-white sm:text-6xl">+</h1>
+return(
+<div className=" rounded-xl  w-full">
+
+
+    <div className="block h-full p-4 border border-white rounded-lg hover:shadow-md bg-yellow-100">
+        <div className="flex flex-col justify-between sm:flex-row">
+            <Link to={`/task/${test}`} target={"_parent"}>
+
+            <h5 className="font-medium text-green-600">{props.tittle}</h5>
+            <p className="mt-1 text-xs font-medium text-black">{props.description}</p>
+            </Link>
+            <div className="flex flex-row justify-between sm:flex-col gap-2">
+
+                <Link to={`/edit/${test}`} className="text-green-700 font-medium text-sm hover:text-indigo-600">
+                Editar
+                </Link>
+
+                <button className="text-green-700 font-medium text-sm hover:text-indigo-600">Apagar
                 </button>
             </div>
-
-            <article className="p-4 bg-white border border-indigo-400 rounded-xl w-full">
-
-                <ul className="mt-4 space-y-2">
-                    <li>
-                        <a
-                            onClick={authLogin}
-                            className="block h-full p-4 border border-white rounded-lg hover:shadow-md bg-yellow-100"
-                        >
-                            <div className="flex flex-col justify-between sm:flex-row">
-                                <div>
-                                    <h5 className="font-medium text-indigo-400">React JS</h5>
-                                    <p className="mt-1 text-xs font-medium text-black">
-                                        Estudar props e os conceitos básicos, estudar schemas e CRUD do framework.
-                                    </p>
-                                </div>
-                                <div className="flex flex-row justify-between mt-2 sm:flex-col">
-                                    <button className="text-green-700 font-black text-sm">editar</button>
-                                    <button className="text-green-700 font-black text-sm">apagar</button>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            onClick={authLogin}
-                            className="block h-full p-4 border border-white rounded-lg hover:shadow-md bg-green-100"
-                        >
-                            <div className="flex flex-col justify-between sm:flex-row">
-                                <div>
-                                    <h5 className="font-medium text-green-600">React JS</h5>
-                                    <p className="mt-1 text-xs font-medium text-black">
-                                        Estudar props e os conceitos básicos, estudar schemas e CRUD do framework.
-                                    </p>
-                                </div>
-                                <div className="flex flex-row justify-between mt-2 sm:flex-col">
-                                    <button className="text-green-700 font-black text-sm">editar</button>
-                                    <button className="text-green-700 font-black text-sm">apagar</button>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            onClick={authLogin}
-                            className="block h-full p-4 border border-white rounded-lg hover:shadow-md bg-yellow-100"
-                        >
-                            <div className="flex flex-col justify-between sm:flex-row">
-                                <div>
-                                    <h5 className="font-medium text-green-600">React JS</h5>
-                                    <p className="mt-1 text-xs font-medium text-black">
-                                        Estudar props e os conceitos básicos, estudar schemas e CRUD do framework.
-                                    </p>
-                                </div>
-                                <div className="flex flex-row justify-between mt-2 sm:flex-col">
-                                    <button className="text-green-700 font-black text-sm">editar</button>
-                                    <button className="text-green-700 font-black text-sm">apagar</button>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </article>
         </div>
-    );
+    </div>
+</div>
+);
 }

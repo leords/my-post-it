@@ -33,8 +33,8 @@ export function AuthPage() {
                             <div className="w-full mt-16 md:mt-0 md:w-2/5">
                                 <div className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 shadow-2xl px-7 rounded-xl">
                                     <h3 className="mb-6 text-2xl font-medium text-center">Entre com sua conta!</h3>
-                                    <input type="text" name="email" className="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 focus:ring focus:ring-indigo-500 focus:outline-none rounded-none" placeholder="Seu Email" />
-                                    <input type="password" name="password" className="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 focus:ring focus:ring-indigo-500 focus:outline-none rounded-none" placeholder="Senha" />
+                                    <input type="text" name="email" className="block w-full px-4 py-3 mb-4 border border-transparent border-gray-200 focus:ring focus:ring-indigo-500 focus:outline-none rounded-none" placeholder="Seu Email" />
+                                    <input type="password" name="password" className="block w-full px-4 py-3 mb-4 border border-transparent border-gray-200 focus:ring focus:ring-indigo-500 focus:outline-none rounded-none" placeholder="Senha" />
                                     <div className="block">
                                         <button 
                                             className="w-full px-3 py-4 font-medium text-white bg-indigo-500 rounded-none"

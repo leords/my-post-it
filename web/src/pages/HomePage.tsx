@@ -4,14 +4,15 @@ import { CardAdd } from "../components/CardAdd";
 import { CardProject } from "../components/CardProject";
 import { CardTask } from "../components/CardTask";
 import { Footer } from "../components/Footer";
-import { FormEdit } from "../components/FormEdit";
 import { Header } from "../components/Header";
+import { ProjectEdit } from "../components/ProjectEdit";
 
 
 export function HomePage() {
 
-    const [isComponentRender, setIsComponentRender] = useState(0)
-    const {id} = useParams();
+    const [isRenderingComponentTaskList, setIsRenderingComponentTaskList] = useState<boolean | null>(null)
+    const [projectNameToBeListed, setprojectNameToBeListed] = useState<string | null>(null)
+    const [listRegisteredProject, setListRegisteredProject] = useState<string | null>(null)
 
     return(
         <div className="flex flex-col items-center justify-between h-screen">
@@ -20,92 +21,137 @@ export function HomePage() {
             <div className="flex flex-row justify-center p-5 w-screen h-screen">
 
                 <div className="p-5 w-[35%] bg-white rounded-md">
-                    <div className="flex w-full items-center justify-around py-10">
+
+                    <div className="flex flex-col text-xs items-center justify-around py-5 gap-1 sm:flex-row">
                         <button 
                             type="button"
-                            className="h-10 w-[30%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:text-xl"
+                            className="h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:bg-indigo-400 focus:text-white sm:focus:text-sm sm:focus:bg-indigo-400 sm:focus:text-white sm:h-10 sm:w-[30%]"
                             title="Apenas projetos ainda em abertos"
+                            onClick={() => setListRegisteredProject('open')}
                         >Abertos
                         </button>
                         <button
                             type="button"
-                            className="h-10 w-[30%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:text-xl"
+                            className="h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:bg-indigo-400 focus:text-white sm:focus:text-sm sm:focus:bg-indigo-400 sm:focus:text-white sm:h-10 sm:w-[30%]"
                             title="Apenas os projetos já terminados"
+                            onClick={() => setListRegisteredProject('closed')}
                         >Fechados
                         </button>
                         <button
                             type="button"
-                            className="h-10 w-[30%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:text-xl"
+                            className="h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:bg-indigo-400 focus:text-white sm:focus:text-sm sm:focus:bg-indigo-400 sm:focus:text-white  sm:h-10 sm:w-[30%]"
                             title="todos os projetos cadastrados"
+                            onClick={() => setListRegisteredProject('all')}
                         >Todos
                         </button>
                     </div>
-                    <div className="flex flex-col items-center">
-                        <ul className="w-full">
-                            <li className="mb-2">
-                                <CardProject 
-                                title="Prepara DEV" 
-                                description="Estudar as linguagens C# e Java"
-                                renderComponent={setIsComponentRender}/>
-                            </li>
-                            <li>
-                                <CardProject 
-                                title="Estudar props" 
-                                description="Como faz e quando é preciso usar?"
-                                renderComponent={setIsComponentRender}/>
-                            </li>
-                        </ul>
-                    </div>
+                    
+                    {listRegisteredProject == 'open' && (
+                        <div className="flex flex-col items-center">
+                            <ul className="w-full">
+                                <li 
+                                    className="mb-2 ring-1 ring-inherit rounded-md ring-orange-300"
+                                    onClick={() => setprojectNameToBeListed('Prepara DEV') /*recebe o titulo*/}
+                                >
+                                    <CardProject 
+                                        title="Prepara DEV" 
+                                        description="Estudar as linguagens C# e Java"
+                                        renderComponent={setIsRenderingComponentTaskList}
+                                    />
+                                </li>
+                            </ul>
+                        </div>                        
+                    )}
+
+                    {listRegisteredProject == 'closed' && (
+                        <div className="flex flex-col items-center">
+                            <ul className="w-full">
+                                <li 
+                                    className="mb-2 ring-1 ring-inherit rounded-md ring-green-600"
+                                    onClick={() => setprojectNameToBeListed('Prepara DEV') /*recebe o titulo*/}
+                                    >
+                                    <CardProject 
+                                    title="Prepara DEV" 
+                                    description="Estudar as linguagens C# e Java"
+                                    renderComponent={setIsRenderingComponentTaskList}
+                                    />
+                                </li>
+                            </ul>
+                        </div>                        
+                    )}
+
+                    {listRegisteredProject == 'all' && (
+                        <div className="flex flex-col items-center">
+                            <ul className="w-full">
+                                <li 
+                                    onClick={() => setprojectNameToBeListed('Prepara DEV') /*recebe o titulo*/}
+                                    >
+                                    <CardProject 
+                                    title="Prepara DEV" 
+                                    description="Estudar as linguagens C# e Java"
+                                    renderComponent={setIsRenderingComponentTaskList}
+                                    />
+                                </li>
+                            </ul>
+                        </div>                        
+                    )}
+                    
                 </div>
 
                 <div className="p-5 ml-5 bg-indigo-200 rounded-md border-[1px] border-indigo-400 w-[60%]">
-                    {/* listar projetos */}
-                    {isComponentRender == 1 && (
+                    {/* condição de renderização para listar tarefas */}
+                    {isRenderingComponentTaskList == true && (
                         <>
-                            <div className="flex flex-col w-full items-end justify-center p-10">
-                            <p className="text-gray-700 text-xs mb-1 mr-1">Listar de forma</p>
-                            <select name="status" className="h-10 p-2 border-[1px] border-indigo-400 rounded-md text-indigo-400">
-                                <option value="true">abertos</option>
-                                <option value="false">fechados</option>
-                                <option value="false">todos</option>
-                            </select>
+                            <div className="flex flex-row p-2 sm:p-10">
+                                <div className="flex flex-col w-[50%] items-start justify-center">
+                                    <p className="text-gray-700 text-xs mb-1">Projeto:</p>
+                                    <h1 className="text-gray-700 font-semibold">{projectNameToBeListed}</h1>
+                                </div>
+                                <div className="flex flex-col w-[50%] items-end justify-center">
+                                    <p className="text-gray-700 text-xs mb-1 mr-1">Listar de forma</p>
+                                    <select name="status" className="h-8 p-1 border-[1px] border-indigo-400 rounded-md text-indigo-400 sm:h-10 sm:p2">
+                                        <option value="open">abertos</option>
+                                        <option value="closed">fechados</option>
+                                        <option value="all">todos</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div className="flex flex-col w-full">
                                 <ul>
                                     <li className="mb-2">
-                                        <CardTask id="" tittle="Utilizar Tailwind no footer" description="Anotar tudo o que for visto em explicações e fazer testes no sistema." date="02/05/2022"/>
+                                        <CardTask 
+                                            id="1" 
+                                            title="Utilizar Tailwind no footer" 
+                                            description="Anotar tudo o que for visto em explicações e fazer testes no sistema." 
+                                            date="02/05/2022"
+                                            renderComponent={setIsRenderingComponentTaskList}                                       
+                                        />
                                     </li>
                                     <li className="mb-2">
-                                        <CardTask id="" tittle="Desenvolver o back-end" description="Anotar tudo" date="02/05/2022"/>
-                                    </li>
-                                    <li>
-                                        <CardTask id="" tittle="Formatar o notebook" description="Anotar tudo" date="02/05/2022"/>
+                                        <CardTask 
+                                            id="" 
+                                            title="Desenvolver o back-end" 
+                                            description="Anotar tudo" 
+                                            date="02/05/2022"
+                                            renderComponent={setIsRenderingComponentTaskList}
+                                        />
                                     </li>
                                 </ul>                
                             </div>
                         </>
                     )}
-                    {/* editar projetos */}
-                    {isComponentRender == 2 && (
-                       <FormEdit 
-                        title="Prepara Dev"
-                        description="Estudar as linguagens C# e java"
-                        renderComponent={setIsComponentRender}
+
+                    {/* condição para renderizar a view de editar ou apagar projetos */}
+                    {isRenderingComponentTaskList == false && (
+                       <ProjectEdit 
+                            title="Prepara Dev"
+                            description="Estudar as linguagens C# e java"
+                            renderComponent={setIsRenderingComponentTaskList}
                        />
                     )}
-                    {/* lista tarefas */}
-                    {isComponentRender == 3 && (
-                       <div></div>
-                    )}
-                    {/* editar tarefas */}
-                    {isComponentRender == 4 && (
-                       <div></div>
-                    )}
-                    
 
                 </div>
-
             </div>
             <Footer />
         </div>

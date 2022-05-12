@@ -50,10 +50,11 @@ export function HomePage() {
                         <div className="flex flex-col items-center">
                             <ul className="w-full">
                                 <li 
-                                    className="mb-2 ring-1 ring-inherit rounded-md ring-orange-300"
+                                    className="mb-2"
                                     onClick={() => setprojectNameToBeListed('Prepara DEV') /*recebe o titulo*/}
                                 >
                                     <CardProject 
+                                        id="id"
                                         title="Prepara DEV" 
                                         description="Estudar as linguagens C# e Java"
                                         renderComponent={setIsRenderingComponentTaskList}
@@ -67,13 +68,14 @@ export function HomePage() {
                         <div className="flex flex-col items-center">
                             <ul className="w-full">
                                 <li 
-                                    className="mb-2 ring-1 ring-inherit rounded-md ring-green-600"
+                                    className="mb-2 "
                                     onClick={() => setprojectNameToBeListed('Prepara DEV') /*recebe o titulo*/}
                                     >
-                                    <CardProject 
-                                    title="Prepara DEV" 
-                                    description="Estudar as linguagens C# e Java"
-                                    renderComponent={setIsRenderingComponentTaskList}
+                                    <CardProject
+                                        id="id"
+                                        title="Prepara DEV" 
+                                        description="Estudar as linguagens C# e Java"
+                                        renderComponent={setIsRenderingComponentTaskList}
                                     />
                                 </li>
                             </ul>
@@ -86,10 +88,11 @@ export function HomePage() {
                                 <li 
                                     onClick={() => setprojectNameToBeListed('Prepara DEV') /*recebe o titulo*/}
                                     >
-                                    <CardProject 
-                                    title="Prepara DEV" 
-                                    description="Estudar as linguagens C# e Java"
-                                    renderComponent={setIsRenderingComponentTaskList}
+                                    <CardProject
+                                        id="id"
+                                        title="Prepara DEV" 
+                                        description="Estudar as linguagens C# e Java"
+                                        renderComponent={setIsRenderingComponentTaskList}
                                     />
                                 </li>
                             </ul>
@@ -108,11 +111,11 @@ export function HomePage() {
                                     <h1 className="text-gray-700 font-semibold">{projectNameToBeListed}</h1>
                                 </div>
                                 <div className="flex flex-col w-[50%] items-end justify-center">
-                                    <p className="text-gray-700 text-xs mb-1 mr-1">Listar de forma</p>
-                                    <select name="status" className="h-8 p-1 border-[1px] border-indigo-400 rounded-md text-indigo-400 sm:h-10 sm:p2">
-                                        <option value="open">abertos</option>
-                                        <option value="closed">fechados</option>
-                                        <option value="all">todos</option>
+                                    <p className="text-gray-700 text-[10px] mb-1 mr-1">Listar de forma</p>
+                                    <select name="status" className="h-5 p-1 border-[1px] border-indigo-400 rounded-sm text-indigo-400 sm:h-7 text-xs">
+                                        <option className="text-xs" value="open">abertos</option>
+                                        <option className="text-xs" value="closed">fechados</option>
+                                        <option className="text-xs" value="all">todos</option>
                                     </select>
                                 </div>
                             </div>
@@ -144,7 +147,8 @@ export function HomePage() {
 
                     {/* condição para renderizar a view de editar ou apagar projetos */}
                     {isRenderingComponentTaskList == false && (
-                       <ProjectEdit 
+                       <ProjectEdit
+                            id="id"
                             title="Prepara Dev"
                             description="Estudar as linguagens C# e java"
                             renderComponent={setIsRenderingComponentTaskList}

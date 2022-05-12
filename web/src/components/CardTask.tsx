@@ -30,7 +30,7 @@ export function CardTask ({
                 onClick={() => setIsRenderViewEdit(!isRenderViewEdit)}
             >
                     <div className="flex flex-col justify-center items-center sm:justify-between sm:items-start">
-                        <h1 className="text-md font-semibold text-gray-800 sm:text-xl">{title}</h1>
+                        <h1 className="text-md font-semibold text-gray-800 sm:text-base">{title}</h1>
                         <dd className="text-xs text-gray-500 mt-2 sm:text-xs">Descrição:</dd>
                         <span className="text-xs text-center text-gray-500 mt-1">{description}</span>
                     </div>

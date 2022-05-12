@@ -1,14 +1,16 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import api from "axios";
+import { useState } from "react";
+import { render } from "react-dom";
+
 
 interface Props {
+    id: string
     title: string
     description: string
     renderComponent: (type: boolean) => void
 }
 
-export function CardProject({title, description, renderComponent}: Props) {
+export function CardProject({id, title, description, renderComponent}: Props) {
 
 return(
     <div className=" rounded-xl  w-full">

@@ -27,6 +27,8 @@ router.get('/user-unique', new ReadUserController().handleUnique)
 //ROUTES TASK.
 router.post('/new-task', new CreateTaskController().handle)
 router.post('/delete-task', new DeleteTaskController().handle)
+router.get('/edit-task-name', new UpdateTaskController().handleEditName)
+router.get('/edit-task-description', new UpdateTaskController().handleEditDescription)
 router.get('/edit-task', new UpdateTaskController().handleEditStatusFalse)
 router.get('/edit-task', new UpdateTaskController().handleEditStatusTrue)
 //Read Retorno
@@ -34,15 +36,17 @@ router.get('/task-all', new ReadTaskController().handleAll)
 router.get('/task-off', new ReadTaskController().handleAllOff)
 router.get('/task-on', new ReadTaskController().handleAllOn)
 //Read Contagem
-router.post('count-all-task', new ReadTaskController().handleCountAll)
-router.post('count-off-task', new ReadTaskController().handleCountAllOff)
-router.post('count-on-task', new ReadTaskController().handleCountAllOn)
+router.post('/count-all-task', new ReadTaskController().handleCountAll)
+router.post('/count-off-task', new ReadTaskController().handleCountAllOff)
+router.post('/count-on-task', new ReadTaskController().handleCountAllOn)
 
 
 //ROUTES PROJETC.
 router.post('/new-project', new CreateProjectController().handle)
 router.post('/delete-project', new DeleteProjectController().handle)
-router.post('/project-update', new UpdateProjectController().handle)
+router.post('/project-update-name', new UpdateProjectController().handleEditName)
+router.post('/project-update-description', new UpdateProjectController().handleEditDescription)
+router.post('/project-update-status', new UpdateProjectController().handleEditStatus)
 //Read Retorno
 router.get('/project-all', new ReadProjectController().handleAll)
 router.get('/project-off', new ReadProjectController().handleAllOff)

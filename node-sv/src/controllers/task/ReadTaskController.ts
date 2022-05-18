@@ -59,7 +59,7 @@ class ReadTaskController {
         const {id} = request.body;
 
         const service = new ReadTaskService();
-        const result = await service.executeAllOn
+        const result = await service.countAllOn
         (id);
 
         return response.json(result)

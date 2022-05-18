@@ -17,6 +17,16 @@ class ReadProjectService {
         return readProject
     }
 
+// Buscando por apenas um projeto.
+    async executeUnique(id_project: string) {
+        const readProject = await prismaClient.project.findUnique({
+            where: {
+                id: id_project
+            },
+        });
+        return readProject
+    }
+
 // Todos os projetos desativados, cadastrados por usuário.
     async executeAllOff(id_project: string) {
         const readProject = await prismaClient.project.findMany({

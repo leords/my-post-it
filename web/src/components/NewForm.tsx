@@ -1,20 +1,257 @@
-import React from "react";
+import { ArrowLeft } from "phosphor-react";
+import React, { useState } from "react";
+import { api } from "../lib/api";
 
-export function NewForm() {
+
+
+interface Props {
+    type: string
+    userID: string
+    projectID: string
+    renderComponent: (type:number) => void
+}
+
+
+export function NewForm({type, userID, projectID, renderComponent}:Props) {
+
+
+    const [name, setName] = useState<string>()
+    const [description, setDescription] = useState<string>()
+
+    const [conditionAlertInputNameNull, setConditionAlertInputNameNull] = useState<boolean>(false)
+    const [conditionAlertInputDescriptionNull, setConditionAlertInputDescriptionNull] = useState<boolean>(false)
+
+    async function saveNewRegister() {
+       
+            if(name != null && description != null) {
+                if (type == 'task') {
+                    try {
+                        await api.post('/new-task' , {
+                            name: name,
+                            description: description,
+                            project: projectID,
+                            user: userID,       
+                        });
+                        alert('Tarefa cadastrada!')
+                        renderComponent(1)
+                    } catch (error) {
+                        alert('Tivemos problemas com o cadastro!');
+                        setName('')
+                        setDescription('')
+                    }
+                }
+                else if (type == 'project') {
+                    try {
+                        await api.post('/new-project' , {
+                            name: name,
+                            description: description,
+                            author: userID,
+                        });
+                        alert('projeto cadastrado!')
+                        renderComponent(1)
+                    } catch (error) {
+                        alert('Tivemos problemas com o cadastro!');
+                        setName('')
+                        setDescription('')
+                    }
+                }
+            } 
+            else if(name == null && description == null) {
+                setConditionAlertInputNameNull(true)
+                setConditionAlertInputDescriptionNull(true)
+                alert('Favor preencha corretamente os campos.');
+            }
+    
+            else if(name == null) {
+                setConditionAlertInputNameNull(true)
+                alert('Favor preencha corretamente os campos.');
+            }
+    
+            else if(description == null) {
+                setConditionAlertInputDescriptionNull(true)
+                alert('Favor preencha corretamente os campos.');
+            }
+        }  
+    
+
     return(
-        <div className="flex w-screen h-screen items-center justify-center bg-indigo-400">
-            <div className="flex flex-col p-6 border items-center justify-center bg-white w-2/5 h-2/4 mx-auto gap-2 rounded-md shadow-md">
-                <h1 className="text-indigo-400 font-black text-6xl mb-4">post-it.</h1>
-                <p className="text-gray-500 text-lg mb-16">Formulário de novos projetos!</p>
-                <input className="w-56 h-10 rounded-md border shadow-sm border-gray-300 text-left pl-3 text-sm"  
-                    type="text" name="name" placeholder="Nome"/>
-                <input className="w-56 h-10 rounded-md border shadow-sm border-gray-300 text-left pl-3 text-sm" 
-                    type="text" name="description" placeholder="Descrição" />
-                <div className="flex flex-row gap-8">
-                    <button className="bg-indigo-400 w-28 h-10 rounded-md mt-16 text-white shadow-md">Criar</button>
-                    <button className="bg-white w-28 h-10 rounded-md border border-indigo-400 mt-16 text-indigo-400 shadow-md">Cancelar</button>
+        <div className="max-w-[500px] h-auto mx-auto bg-slate-300">
+
+            {type == 'task' && (
+                <div className="flex flex-col p-6 pt-10  items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
+                    <div className="flex flex-row w-full justify-between">
+                        <ArrowLeft 
+                            size={22}
+                            onClick={() => renderComponent(1)}
+                        />
+                    </div>
+                    <div className="w-full flex flex-col items-center justify-center m-1 p-1 text-sm font-medium sm:text-lg">
+                        <h1 className="text-xl ">Nova Tarefa</h1>
+                        <p className="p-1 text-xs text-center text-indigo-400">Descreva as definições de sua nova tarefa!</p>
+                    </div>
+
+                    <div className="w-full flex flex-col py-10 m-1 border rounded-md sm:p-5">
+                        <div className="w-full flex flex-col justify-center items-center gap-2 sm:gap-1 sm:py-12">
+                            {conditionAlertInputNameNull == false && (
+                                <input 
+                                    title="Insira o nome do projeto"
+                                    placeholder="Nome da tarefa"
+                                    name="name"
+                                    className="bg-gray-50 w-[70%] h-8 text-xs text-left p-4 border border-indigo-400 rounded-md mb-3"
+                                    type="text"
+                                    onChange={(e) => setName(e.target.value)}
+                                />                                  
+                            )}
+                            {conditionAlertInputNameNull == true && (
+                                <>
+                                <div className="w-[70%] flex">
+                                    <p className="text-[10px] text-red-600">* favor preecha está lacuna</p>
+                                </div>
+                                <input 
+                                    title="Insira o nome do projeto"
+                                    placeholder="Nome da tarefa"
+                                    name="name"
+                                    className="bg-gray-50 w-[70%] h-8 text-xs text-left p-4 border border-red-500 rounded-md"
+                                    type="text"
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                                </>                                 
+                            )}
+
+                            {conditionAlertInputDescriptionNull == false && (
+                            <input
+                                title="Insira aqui a descrição do projeto"
+                                placeholder="Descrição da tarefa"
+                                className="bg-gray-50 w-[70%] h-24 text-xs text-left p-4 border border-indigo-400 rounded-md"
+                                type="text"
+                                onChange={(e) => setDescription(e.target.value)} 
+                            />                                
+                            )}
+                            {conditionAlertInputDescriptionNull == true && (
+                                <>
+                                <div className="w-[70%] flex">
+                                    <p className="text-[10px] text-red-600">* favor preecha está lacuna</p>
+                                </div>
+                                <input
+                                    title="Insira aqui a descrição do projeto"
+                                    placeholder="Descrição da tarefa"
+                                    className="w-[70%] h-24 text-xs text-left p-4 border border-red-500 rounded-md"
+                                    type="text"
+                                    onChange={(e) => setDescription(e.target.value)} 
+                                />
+                                </>                                
+                            )}                            
+
+                            <div className="flex flex-row w-[70%] items-center justify-between mt-6">
+                                <button
+                                    onClick={saveNewRegister}
+                                    className="bg-indigo-300 w-[45%] h-8 text-white p-2 text-xs rounded-md hover:bg-indigo-400">
+                                    Salvar
+                                </button>
+                                <button
+                                    onClick={() => renderComponent(1)}
+                                    className="w-[45%] h-8 text-indigo-400 p-2 text-xs rounded-md border border-indigo-300 hover:bg-gray-100 hover:text-indigo-500">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full h-4 flex items-center justify-center pt-2">
+                        <p className="text-[10px] text-center">
+                        Seu projeto será automaticamente criado com a data do dia atual
+                        </p>
+                    </div>
                 </div>
-            </div>
+            )}
+
+
+
+
+            {type == 'project' && (
+                <div className="flex flex-col p-6 pt-10  items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
+                    <div className="flex flex-row w-full justify-between">
+                        <ArrowLeft 
+                            size={22}
+                            onClick={() => renderComponent(1)}
+                        />
+                    </div>
+                    <div className="w-full flex flex-col items-center justify-center m-1 p-1 text-sm font-medium sm:text-lg">
+                        <h1 className="text-xl ">Novo projeto</h1>
+                        <p className="p-1 text-xs text-center text-indigo-400">Descreva as definições de seu novo projeto!</p>
+                    </div>
+
+                    <div className="w-full flex flex-col py-10 m-1 border rounded-md sm:p-5">
+                        <div className="w-full flex flex-col justify-center items-center gap-2 sm:py-12">
+                            {conditionAlertInputNameNull == false && (
+                                <input 
+                                    title="Insira o nome do projeto"
+                                    placeholder="Nome da tarefa"
+                                    name="name"
+                                    className="bg-gray-50 w-[70%] h-8 text-xs text-left p-4 border border-indigo-400 rounded-md mb-2"
+                                    type="text"
+                                    onChange={(e) => setName(e.target.value)}
+                                />                                  
+                            )}
+                            {conditionAlertInputNameNull == true && (
+                                <>
+                                <div className="w-[70%] flex">
+                                    <p className="text-[10px] text-red-600">* favor preecha está lacuna</p>
+                                </div>
+                                <input 
+                                    title="Insira o nome do projeto"
+                                    placeholder="Nome da tarefa"
+                                    name="name"
+                                    className="bg-gray-50 w-[70%] h-8 text-xs text-left p-4 border border-red-500 rounded-md"
+                                    type="text"
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                                </>                                 
+                            )}
+
+                            {conditionAlertInputDescriptionNull == false && (
+                                <input
+                                    title="Insira aqui a descrição do projeto"
+                                    placeholder="Descrição da tarefa"
+                                    className="bg-gray-50 w-[70%] h-24 text-xs text-left p-4 border border-indigo-400 rounded-md"
+                                    type="text"
+                                    onChange={(e) => setDescription(e.target.value)} 
+                                />                                
+                            )}
+                            {conditionAlertInputDescriptionNull == true && (
+                                <>
+                                <div className="w-[70%] flex">
+                                    <p className="text-[10px] text-red-600">* favor preecha está lacuna</p>
+                                </div>
+                                <input
+                                    title="Insira aqui a descrição do projeto"
+                                    placeholder="Descrição da tarefa"
+                                    className="w-[70%] h-24 text-xs text-left p-4 border border-red-500 rounded-md"
+                                    type="text"
+                                    onChange={(e) => setDescription(e.target.value)} 
+                                />
+                                </>
+                            )}
+                            <div className="flex flex-row w-[70%] items-center justify-between mt-6">
+                                <button
+                                    onClick={saveNewRegister}
+                                    className="bg-indigo-300 w-[45%] h-8 text-white p-2 text-xs rounded-md hover:bg-indigo-400">
+                                    Salvar
+                                </button>
+                                <button
+                                    onClick={() => renderComponent(1)}
+                                    className="w-[45%] h-8 text-indigo-400 p-2 text-xs rounded-md border border-indigo-300 hover:bg-gray-100 hover:text-indigo-500">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full h-4 flex items-center justify-center pt-2">
+                    <p className="text-[10px] text-center">
+                        Sua tarefa será automaticamente criada com a data do dia atual
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

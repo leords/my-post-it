@@ -27,7 +27,7 @@ class ReadTaskService {
             },
             orderBy: {
                 name: "desc"
-            }
+            },
         });
         return newRead
     }
@@ -41,7 +41,7 @@ class ReadTaskService {
             },
             orderBy: {
                 name: "desc"
-            }
+            },
         });
         return newRead
     }
@@ -71,7 +71,7 @@ class ReadTaskService {
             },
             orderBy: {
                 name: "desc"
-            }
+            },
         });
         return newRead
     }
@@ -85,7 +85,7 @@ class ReadTaskService {
             },
             orderBy: {
                 name: "desc"
-            }
+            },
         });
         return newRead
     }

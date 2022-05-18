@@ -1,9 +1,7 @@
-import React from "react";
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import React, { ReactNode } from "react";
+import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
-
-
-import { NewForm } from "../components/NewForm";
+import { RequireAuth } from "../Auth/RequireAuth";
 import { AuthPage } from "../pages/AuthPage";
 import { HomePage } from "../pages/HomePage";
 
@@ -13,8 +11,7 @@ export function Naviagation() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={ <AuthPage />} /> 
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/new" element={<NewForm />} /> 
+                <Route path="/home" element={<RequireAuth> <HomePage /> </RequireAuth>} />
             </Routes>
         </BrowserRouter>
     );

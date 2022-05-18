@@ -1,41 +1,112 @@
 import { ArrowLeft, Trash } from "phosphor-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { render } from "react-dom";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 
 
 interface Props {
     id: string
-    title: string
-    description: string
-    renderComponent: (type: boolean) => void
+    renderComponent: (type: number) => void
 }
 
-export function ProjectEdit({id, title, description, renderComponent}:Props) {
+type project = {
+    id: string
+    name: string
+    description: string
+    status: boolean
+    date: Date
+    author: string
+}
+
+export function ProjectEdit({id, renderComponent}:Props) {
 
     const [isButtonEditName, setIsButtonEditName] = useState(false)
     const [isButtonEditDescription, setIsButtonEditDescription] = useState(false)
 
+    const [project, setProject] = useState<project>()
+
     const [newName, setNewName] = useState('')
     const [newDescription, setNewDescription] = useState('')
+    const [newStatus, setNewStatus] = useState<boolean | null>(true)
+
+    const [countTaskOpen, setCountTaskOpen] = useState<string|null>('0')
+    const [countTaskClosed, setCountTaskClosed] = useState<string|null>('0')
+    const [countTaskAll, setCountTaskAll] = useState<string|null>('0')
+
+    useEffect (() => {
+        async function returnProject() {
+            await api.post('/project-unique', {id: id}).then(response => {
+                setProject(response.data);
+            });
+        }
+        returnProject()
+    }, [])
+
+
+    useEffect (() => {
+        async function returnHowMany() {
+                    
+            await api.post('/count-on-task', { id: id }).then(response => {
+                setCountTaskOpen(response.data);
+            });
+        
+            await api.post('/count-off-task', { id: id }).then(response => {
+                setCountTaskClosed(response.data);
+            });
+
+            await api.post('/count-all-task', { id: id }).then(response => {
+                setCountTaskAll(response.data);
+            })
+        }
+        returnHowMany()
+    }, 
+    []);
 
     async function deleteProject() {
-        await api.post('/delete-project', {
-            id
-        })
+        try {
+            await api.post('/delete-project', { id: id });
+            renderComponent(1);
+        } catch (error) {
+            alert(error)
+        }
     }
 
     async function updateName() {
-        await api.post('/project-update', {
-            newName
-        })
+        try {
+            await api.post('/project-update-name', {
+                id: id,
+                name: newName
+            });
+        } catch (error) {
+            alert(error)
+        }
     }
 
     async function updateDescription() {
-        await api.post('/project-update', {
-            newDescription
-        })
+        try {
+            await api.post('/project-update-description', {
+                id: id,
+                description: newDescription
+            });     
+        } catch (error) {
+           alert(error) 
+        }
     }
+
+    async function updateStatus() {
+        alert(newStatus)
+        try {
+            await api.post('/project-update-status', {
+                id: id, 
+                status: newStatus 
+            });
+            renderComponent(1)
+        } catch (error) {
+            alert(error)
+        }
+    }
+
 
     return (
         <div className="max-w-[500px] h-auto mx-auto bg-slate-300">
@@ -44,7 +115,7 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                 <div className="flex flex-row w-full justify-between">
                     <ArrowLeft 
                         size={22}
-                        onClick={() => renderComponent(true)}
+                        onClick={() => renderComponent(1)}
                     />
                     <p
                         className="text-[11px] font-black"
@@ -57,7 +128,7 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                         title="clique para editar"
                         onClick={() => setIsButtonEditName(!isButtonEditName)}
                     >
-                    <p className="text-gray-700 text-base mb-3 sm:text-lg">{title}</p>
+                    <p className="text-gray-700 text-base mb-3 sm:text-lg">{project?.name}</p>
                     </a>
                 </div>
 
@@ -70,6 +141,7 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                             className="h-6 w-[80%] border border-indigo-400 rounded-md text-xs p-2"
                         />
                         <button 
+                            onClick={updateName}
                             className="h-6 w-[20%] bg-indigo-300 p-1 rounded-md text-white text-xs hover:bg-indigo-500">
                             salvar
                         </button>
@@ -83,7 +155,7 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                         title="clique para editar!"
                         onClick={() => setIsButtonEditDescription(!isButtonEditDescription)}
                     >
-                        <p className="text-xs text-left text-gray-700">{description}</p>
+                        <p className="text-xs text-left text-gray-700">{project?.description}</p>
 
                     </a>
                 </div>
@@ -98,6 +170,7 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                             className="h-auto w-auto border border-indigo-400 rounded-md text-xs p-2"
                         />
                         <button 
+                            onClick={updateDescription}
                             className="bg-indigo-300 rounded-md text-white text-xs p-1 hover:bg-indigo-400">
                             salvar
                         </button>
@@ -109,32 +182,38 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                         <p className="text-xs text-indigo-400">Tarefas:</p>
                     </div>
                     <div className="flex flex-col w-full px-5 py-2 justify-between items-center border-[1px] border-indigo-400 rounded-md sm:flex-row">
-                        <p className="text-xs p-1 text-gray-500">abertas: 10</p>
-                        <p className="text-xs p-1 text-gray-500">fechadas: 20</p>
-                        <p className="text-xs p-1 text-gray-500">todas: 30</p>
+                        <p className="text-xs p-1 text-gray-500">Total: {countTaskAll}</p>
+                        <p className="text-xs p-1 text-gray-500">Fechadas: {countTaskClosed}</p>
+                        <p className="text-xs p-1 text-gray-500">Abertas: {countTaskOpen}</p>
                     </div>
                 </div>
 
-                <div className=" w-full py-4 border-b-[1px] border-gray-300">
 
-                </div>
-                    
-                <div className="flex flex-row gap-3 items-center justify-center mt-2 sm:mt-10">
-                    <input
-                        type="checkbox"
-                        className="bg-slate-500 w-6 h-6"
-                        name="status"
-                    />
-                    <p className="text-[11px]">Marcar está tarefa como completa!</p>
-                </div>
+                {project?.status == true && (
+                    <>
+                        <div className=" w-full py-4 border-b-[1px] border-gray-300">
 
-                <div className="flex flex-row gap-10 w-full">
-                    <button 
-                        onClick={() => renderComponent(true)}
-                        className="bg-indigo-300 w-full h-8 rounded-md mt-3 text-sm text-white shadow-md hover:bg-indigo-400">
-                        Salvar
-                    </button>
-                </div>
+                        </div>
+                        <div className="flex flex-row gap-3 items-center justify-center mt-2 sm:mt-10">
+                            <input
+                                type="checkbox"
+                                className="bg-slate-500 w-6 h-6"
+                                name="status"
+                                onChange={() => setNewStatus(false)}
+                            />
+                            <p className="text-[11px]">Marcar está tarefa como completa!</p>
+                        </div>
+    
+                        <div className="flex flex-row gap-10 w-full">
+                            <button 
+                                onClick={updateStatus}
+                                className="bg-indigo-300 w-full h-8 rounded-md mt-3 text-sm text-white shadow-md hover:bg-indigo-400">
+                                Salvar
+                            </button>
+                        </div>
+                    </>
+                )}
+
 
                 <div className="flex flex-row w-full justify-end mt-10">
                     <div className="flex flex-col justify-center items-center">
@@ -142,7 +221,7 @@ export function ProjectEdit({id, title, description, renderComponent}:Props) {
                             size={25}
                             color={'red'}
                             weight={"thin"}
-                            onClick={() => renderComponent(false)}
+                            onClick={deleteProject}
                         />
                         <p className="text-xs text-gray-500">apagar</p>
                     </div>

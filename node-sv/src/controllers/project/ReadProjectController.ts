@@ -15,6 +15,15 @@ class ReadProjectController {
         return response.json(result)
     }
 
+    async handleUnique(request: Request, response: Response) {
+        const {id} = request.body;
+
+        const service = new ReadProjectService();
+        const result = await service.executeUnique(id);
+
+        return response.json(result)
+    }
+
     async handleAllOff(request: Request, response: Response) {
         const {id} = request.body;
 

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\leo_r\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/bcrypt -D
+  C:\Program Files\nodejs\node.exe C:\Users\leo_r\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/bcrypts -D
 
 PATH: 
   C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\OpenJDK\openjdk-11.0.12_7\bin;C:\Program Files\Git\cmd;C:\Users\leo_r\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\leo_r\AppData\Local\Programs\Python\Python310\;C:\Users\leo_r\AppData\Local\Microsoft\WindowsApps;;C:\Users\leo_r\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\leo_r\AppData\Roaming\npm
@@ -14,7 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\leo_r\Desktop\projetos\post-it\node-sv\node_modules\prisma\engines\22b822189f46ef0dc5c5b503368d1bee01213980\query_engine-windows.dll.node'
+  Error: https://registry.yarnpkg.com/@types%2fbcrypts: Not found
+      at Request.params.callback [as _callback] (C:\Users\leo_r\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:67029:18)
+      at Request.self.callback (C:\Users\leo_r\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
+      at Request.emit (events.js:400:28)
+      at Request.<anonymous> (C:\Users\leo_r\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141855:10)
+      at Request.emit (events.js:400:28)
+      at IncomingMessage.<anonymous> (C:\Users\leo_r\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141777:12)
+      at Object.onceWrapper (events.js:519:28)
+      at IncomingMessage.emit (events.js:412:35)
+      at endReadableNT (internal/streams/readable.js:1334:12)
+      at processTicksAndRejections (internal/process/task_queues.js:82:21)
 
 npm manifest: 
   {
@@ -35,6 +45,7 @@ npm manifest:
       "typescript": "^4.6.3"
     },
     "devDependencies": {
+      "bcryptjs": "^2.4.3",
       "prisma": "^3.12.0"
     }
   }
@@ -171,6 +182,11 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
     integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+  
+  bcryptjs@^2.4.3:
+    version "2.4.3"
+    resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+    integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
   
   binary-extensions@^2.0.0:
     version "2.2.0"

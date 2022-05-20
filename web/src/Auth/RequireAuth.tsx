@@ -1,15 +1,15 @@
-import { useContext } from "react"
-import { Navigate } from "react-router-dom"
-import { AuthPage } from "../pages/AuthPage"
-import { AuthContext } from "./AuthContext"
+import { useContext } from "react";
+import { AuthPage } from "../pages/AuthPage";
+import { AuthContext } from "./AuthContext";
 
-export const RequireAuth = ({ children }: { children:JSX.Element }) => {
- 
-    const auth = useContext(AuthContext)
+export const RequireAuth = ({ children }: { children: JSX.Element }) => {
+
+    const {signed} = useContext(AuthContext);
+
+    if (!signed == true) {
+        return <AuthPage />;
+    } 
+
+    return children;
     
-    if(auth.user != null) {
-        return <AuthPage />
-        }
-
-    return children
 }

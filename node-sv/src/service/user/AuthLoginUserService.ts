@@ -1,6 +1,5 @@
 import prismaClient from "../../prisma";
 
-
 class AuthLoginUserService {
     async execute(email: string, password: string){
 
@@ -12,10 +11,18 @@ class AuthLoginUserService {
                 },
             });
             
-            if(authUser?.email == email && authUser?.password) {
-                return authUser
+            if(authUser?.email == email && authUser?.password == password) {
+
+                   const user = {
+                        id: authUser.id,
+                        name: authUser.name,
+                        email: authUser.email,
+                    }
+                    const token = '545kadjijopad541a564dad6a4dad'
+                
+                return {user, token} 
             } 
-        
+                return false
         } catch (error) {
             alert('Auth not invalid!')
         }

@@ -1,18 +1,17 @@
 import { ArrowLeft } from "phosphor-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { api } from "../lib/api";
-
 
 
 interface Props {
     type: string
-    userID: string
+    userLoggedID: string | null
     projectID: string
     renderComponent: (type:number) => void
 }
 
 
-export function NewForm({type, userID, projectID, renderComponent}:Props) {
+export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) {
 
 
     const [name, setName] = useState<string>()
@@ -30,7 +29,7 @@ export function NewForm({type, userID, projectID, renderComponent}:Props) {
                             name: name,
                             description: description,
                             project: projectID,
-                            user: userID,       
+                            user: userLoggedID,       
                         });
                         alert('Tarefa cadastrada!')
                         renderComponent(1)
@@ -45,7 +44,7 @@ export function NewForm({type, userID, projectID, renderComponent}:Props) {
                         await api.post('/new-project' , {
                             name: name,
                             description: description,
-                            author: userID,
+                            author: userLoggedID,
                         });
                         alert('projeto cadastrado!')
                         renderComponent(1)

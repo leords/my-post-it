@@ -1,5 +1,6 @@
 import { PlusCircle } from "phosphor-react";
 import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Auth/AuthContext";
 import { CardProject } from "../components/CardProject";
 import { CardTask } from "../components/CardTask";
 import { Footer } from "../components/Footer";
@@ -25,7 +26,7 @@ type task = {
     status: boolean
     date: Date
     project: string
-    user: string
+    userLogged: string
 }
 
 
@@ -33,7 +34,7 @@ type task = {
 export function HomePage() {
 
 
-    const [isRenderingComponentTaskList, setIsRenderingComponentTaskList] = useState<number | null>(0)
+    const [isRenderingComponentTaskList, setIsRenderingComponentTaskList] = useState<number | null>(null)
     const [projectNameToBeListed, setprojectNameToBeListed] = useState<string | null>(null)
     const [projectIDToBeListed, setprojectIDToBeListed] = useState<string>('')
     const [listRegisteredProject, setListRegisteredProject] = useState<string | null>('all')
@@ -44,16 +45,25 @@ export function HomePage() {
 
     const [listAlltask, setListAllTask] = useState<task[] | null>(null)
     
-    const [userID, setUserId] = useState<string | null>('35dda5a2-b07a-4f99-ba9f-346574a68be8')
-    const [userID2, setUserId2] = useState<string>('40814ae3-aead-4bc0-af45-ab674f25f2a1')
+    //const [userLogged, setUserLogged] = useState<string | null>('98419119-1e74-4c09-8a59-f9420e1fdd2e')
     const [optionSelectedInTaskList, SetOptionSelectedInTaskList] = useState<string >('all')
 
+    const userLogged = '98419119-1e74-4c09-8a59-f9420e1fdd2e';
+
     useEffect(() => {
-        api.post('/project-all', { id: userID2 } ).then(response => {
+
+        api.post('/project-all', { id: userLogged } ).then(response => {
             setListAllProject(response.data)
         });
-    },
-    [listAllproject]);
+
+        if (projectIDToBeListed != null) {
+            api.post('/task-all',  { id: projectIDToBeListed } ).then(response => {
+                setListAllTask(response.data)
+            });
+        }
+
+    },[projectIDToBeListed]);
+
 
     useEffect(() => {
 
@@ -75,12 +85,12 @@ export function HomePage() {
             });
         }
     }, 
-    [listAlltask]);
+    [optionSelectedInTaskList]);
 
     async function returnOpenProject() {
 
         try {
-            await api.post('/project-on', {id: userID2}).then(response => {
+            await api.post('/project-on', {id: userLogged}).then(response => {
                 setListOpenProject(response.data)
             });
             setListRegisteredProject('open')
@@ -93,7 +103,7 @@ export function HomePage() {
     async function returnClosedProject() {
 
         try {
-            await api.post('/project-off', {id: userID2}).then(response => {
+            await api.post('/project-off', {id: userLogged}).then(response => {
                 setLisOffProject(response.data)
             }); 
             setListRegisteredProject('closed')
@@ -106,7 +116,7 @@ export function HomePage() {
     async function returnAllProject() {
 
         try {
-            await api.post('/project-all', {id: userID2}).then(response => {
+            await api.post('/project-all', {id: userLogged}).then(response => {
                 setListAllProject(response.data)
             });
     
@@ -161,8 +171,9 @@ export function HomePage() {
                                 {listOpenproject?.map(projects => {
                                     return  (
                                         <li 
+                                            key={projects.id}
                                             className="mb-2"
-                                            onClick={(e) => {
+                                            onClick={() => {
                                                 setprojectIDToBeListed(projects.id)
                                                 setprojectNameToBeListed(projects.name) 
                                             }}
@@ -188,6 +199,7 @@ export function HomePage() {
                                 {listOffproject?.map(projects => {
                                     return  (
                                         <li 
+                                            key={projects.id}
                                             className="mb-2"
                                             onClick={(e) => {
                                                 setprojectIDToBeListed(projects.id)
@@ -214,6 +226,7 @@ export function HomePage() {
                                 {listAllproject?.map(projects => {
                                     return  (
                                         <li 
+                                            key={projects.id}
                                             className="mb-2"
                                             onClick={(e) => {
                                                 setprojectIDToBeListed(projects.id)
@@ -279,7 +292,9 @@ export function HomePage() {
                                             <ul>
                                                 {listAlltask?.map(tasks => {
                                                     return (
-                                                        <li className="mb-2"
+                                                        <li 
+                                                            key={tasks.id}
+                                                            className="mb-2"
                                                         >                                           
                                                         <CardTask 
                                                             id={tasks.id}
@@ -309,7 +324,7 @@ export function HomePage() {
                     {isRenderingComponentTaskList == 3 && (
                        <NewForm
                             type={'project'}
-                            userID={userID2}
+                            userLoggedID={userLogged}
                             projectID={projectIDToBeListed}
                             renderComponent={setIsRenderingComponentTaskList}
                        />
@@ -318,7 +333,7 @@ export function HomePage() {
                     {isRenderingComponentTaskList == 4 && (
                        <NewForm
                             type={'task'}
-                            userID={userID2}
+                            userLoggedID={userLogged}
                             projectID={projectIDToBeListed}
                             renderComponent={setIsRenderingComponentTaskList}
                             />

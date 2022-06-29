@@ -12,10 +12,10 @@ class ReadUserController{
     }
 
     async handleUnique(request: Request, response:Response){
-        const {id} = request.body;
+        const {email} = request.body;
 
         const service = new ReadUserService();
-        const result = await service.executeUnique(id);
+        const result = await service.executeUnique(email);
 
         return response.json(result)
     }

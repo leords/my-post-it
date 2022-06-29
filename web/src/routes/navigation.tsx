@@ -16,7 +16,8 @@ export function Naviagation() {
                 <Routes>
                     <Route 
                         path="/" 
-                            element={ <AuthPage />  }/> 
+                        element={ <AuthPage />  }
+                    /> 
                     <Route 
                         path="/home" 
                         element={<RequireAuth><HomePage /></RequireAuth>} 

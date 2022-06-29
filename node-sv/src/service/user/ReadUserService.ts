@@ -1,19 +1,25 @@
 import prismaClient from "../../prisma";
 
 class ReadUserService {
+    
     async executeAll() {
         const queryAllUser = await prismaClient.user.findMany();
         
         return queryAllUser
     }
 
-    async executeUnique(id: string) {
+    async executeUnique(email: string) {
         const queryUniqueUser = await prismaClient.user.findUnique({
             where: {
-                id: id,
+                email: email,
             },
         });
-        return queryUniqueUser
+        
+        if(queryUniqueUser != null) {
+            return true
+        } 
+
+        return false
     }
 }
 

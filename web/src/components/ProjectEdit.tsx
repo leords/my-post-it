@@ -23,13 +23,10 @@ export function ProjectEdit({id, renderComponent}:Props) {
 
     const [isButtonEditName, setIsButtonEditName] = useState(false)
     const [isButtonEditDescription, setIsButtonEditDescription] = useState(false)
-
     const [project, setProject] = useState<project>()
-
     const [newName, setNewName] = useState('')
     const [newDescription, setNewDescription] = useState('')
     const [newStatus, setNewStatus] = useState<boolean | null>(true)
-
     const [countTaskOpen, setCountTaskOpen] = useState<string|null>('0')
     const [countTaskClosed, setCountTaskClosed] = useState<string|null>('0')
     const [countTaskAll, setCountTaskAll] = useState<string|null>('0')
@@ -110,7 +107,6 @@ export function ProjectEdit({id, renderComponent}:Props) {
 
     return (
         <div className="max-w-[500px] h-auto mx-auto bg-slate-300">
-
             <div className="flex flex-col p-6 pt-10 border items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
                 <div className="flex flex-row w-full justify-between">
                     <ArrowLeft 
@@ -120,15 +116,17 @@ export function ProjectEdit({id, renderComponent}:Props) {
                     <p
                         className="text-[11px] font-black"
                         title="Para editar as propriedades de nome ou de descrição, clique em cima do mesmo!."
-                    >Editar?</p>
-                </div>
-                
+                    >
+                        Editar?
+                     </p>
+                </div>               
                 <div className="flex flex-col justify-center items-center w-full">
                     <a
                         title="clique para editar"
-                        onClick={() => setIsButtonEditName(!isButtonEditName)}
-                    >
-                    <p className="text-gray-700 text-base mb-3 sm:text-lg">{project?.name}</p>
+                        onClick={() => setIsButtonEditName(!isButtonEditName)}>
+                        <p className="text-gray-700 text-base mb-3 sm:text-lg">
+                            {project?.name}
+                        </p>
                     </a>
                 </div>
 
@@ -155,11 +153,11 @@ export function ProjectEdit({id, renderComponent}:Props) {
                         title="clique para editar!"
                         onClick={() => setIsButtonEditDescription(!isButtonEditDescription)}
                     >
-                        <p className="text-xs text-left text-gray-700">{project?.description}</p>
-
+                        <p className="text-xs text-left text-gray-700">
+                            {project?.description}
+                        </p>
                     </a>
                 </div>
-
 
                 {isButtonEditDescription == true && (
                     <div className="flex flex-col gap-2 w-full pb-4 border-b-[1px] border-gray-300">
@@ -188,7 +186,6 @@ export function ProjectEdit({id, renderComponent}:Props) {
                     </div>
                 </div>
 
-
                 {project?.status == true && (
                     <>
                         <div className=" w-full py-4 border-b-[1px] border-gray-300">
@@ -214,7 +211,6 @@ export function ProjectEdit({id, renderComponent}:Props) {
                     </>
                 )}
 
-
                 <div className="flex flex-row w-full justify-end mt-10">
                     <div className="flex flex-col justify-center items-center">
                         <Trash 
@@ -229,7 +225,6 @@ export function ProjectEdit({id, renderComponent}:Props) {
                 <div className="flex flex-row items-baseline justify-center">
                     <p className="text-xs font-extralight text-gray-500">Publicado: 11/05/2022</p>
                 </div>
-
             </div>
         </div>
     )

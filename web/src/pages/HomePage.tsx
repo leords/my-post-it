@@ -1,6 +1,4 @@
-import { PlusCircle } from "phosphor-react";
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Auth/AuthContext";
+import {useEffect, useState } from "react";
 import { CardProject } from "../components/CardProject";
 import { CardTask } from "../components/CardTask";
 import { Footer } from "../components/Footer";
@@ -29,29 +27,21 @@ type task = {
     userLogged: string
 }
 
-
-
 export function HomePage() {
-
 
     const [isRenderingComponentTaskList, setIsRenderingComponentTaskList] = useState<number | null>(null)
     const [projectNameToBeListed, setprojectNameToBeListed] = useState<string | null>(null)
     const [projectIDToBeListed, setprojectIDToBeListed] = useState<string>('')
     const [listRegisteredProject, setListRegisteredProject] = useState<string | null>('all')
-
     const [listAllproject, setListAllProject] = useState<project[]>()
     const [listOpenproject, setListOpenProject] = useState<project[]>()
     const [listOffproject, setLisOffProject] = useState<project[]>()
-
     const [listAlltask, setListAllTask] = useState<task[] | null>(null)
-    
-    //const [userLogged, setUserLogged] = useState<string | null>('98419119-1e74-4c09-8a59-f9420e1fdd2e')
     const [optionSelectedInTaskList, SetOptionSelectedInTaskList] = useState<string >('all')
 
     const userLogged = '98419119-1e74-4c09-8a59-f9420e1fdd2e';
 
     useEffect(() => {
-
         api.post('/project-all', { id: userLogged } ).then(response => {
             setListAllProject(response.data)
         });
@@ -61,12 +51,10 @@ export function HomePage() {
                 setListAllTask(response.data)
             });
         }
-
-    },[projectIDToBeListed]);
-
+    },[projectIDToBeListed]
+    );
 
     useEffect(() => {
-
         if (optionSelectedInTaskList == 'open') {
             api.post('/task-on', { id: projectIDToBeListed } ).then(response => {
                 setListAllTask(response.data)
@@ -84,44 +72,42 @@ export function HomePage() {
                 setListAllTask(response.data)
             });
         }
-    }, 
-    [optionSelectedInTaskList]);
+    },[optionSelectedInTaskList]
+    );
 
     async function returnOpenProject() {
-
         try {
             await api.post('/project-on', {id: userLogged}).then(response => {
                 setListOpenProject(response.data)
             });
             setListRegisteredProject('open')
 
-        } catch (error) {
+        }
+        catch (error) {
             alert(error)
         }
     }
 
     async function returnClosedProject() {
-
         try {
             await api.post('/project-off', {id: userLogged}).then(response => {
                 setLisOffProject(response.data)
             }); 
             setListRegisteredProject('closed')
-
-        } catch (error) {
+        } 
+        catch (error) {
             alert(error)  
         }
     }
 
     async function returnAllProject() {
-
         try {
             await api.post('/project-all', {id: userLogged}).then(response => {
                 setListAllProject(response.data)
             });
-    
             setListRegisteredProject('all')
-        } catch (error) {
+        } 
+        catch (error) {
             alert(error)
         }
     }
@@ -129,42 +115,47 @@ export function HomePage() {
     return(
         <div className="flex flex-col items-center justify-between h-screen">
             <Header />
-            
-            <div className="flex flex-row justify-center p-5 w-screen h-screen">
-                <div className="p-5 w-[35%] bg-white rounded-md">
+            <div className="flex flex-row justify-center p-5 w-screen h-screen bg-indigo-100">
+                <div className="py-10 px-5 w-[35%] bg-white rounded-md">
                     <div className="w-full flex items-center justify-center">
                         <button
                             onClick={() => setIsRenderingComponentTaskList(3)}
-                            className="bg-indigo-300 w-[90%] text-white text-xs py-1 px-1 rounded-md shadow-md sm:w-[80%] sm:h-10 sm:text-sm sm:font-semibold hover:bg-indigo-400"
+                            className={"bg-indigo-300 w-[90%] text-white text-xs py-1 px-1 rounded-md shadow-md sm:w-[100%] sm:h-10 sm:text-sm sm:font-semibold hover:bg-indigo-400"}
                         >
-                             Novo Projeto
+                             Criar Novo Projeto
                         </button>
                     </div>
 
-                    <div className="flex flex-col text-xs items-center justify-around py-5 gap-1 sm:flex-row">
+                    <p className="text-left pl-1 text-xs mt-5">Listar projetos:</p>            
+                    {/* <- project conditions buttons */}
+                    <div className="flex flex-col text-xs items-center justify-around py-2 gap-1 mb-8 sm:flex-row">
                         <button 
                             type="button"
-                            className="h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:bg-indigo-400 focus:text-white sm:focus:text-sm sm:focus:bg-indigo-400 sm:focus:text-white sm:h-10 sm:w-[30%]"
+                            className={`h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "open" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
                             title="Apenas projetos ainda em abertos"
                             onClick={returnOpenProject}
-                        >Abertos
+                        >
+                            Abertos
                         </button>
                         <button
                             type="button"
-                            className="h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:bg-indigo-400 focus:text-white sm:focus:text-sm sm:focus:bg-indigo-400 sm:focus:text-white sm:h-10 sm:w-[30%]"
+                            className={`h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "closed" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
                             title="Apenas os projetos já terminados"
                             onClick={returnClosedProject}
-                        >Concluídos
+                        >   
+                            Concluídos
                         </button>
                         <button
                             type="button"
-                            className="h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-400 hover:text-white hover:shadow-lg focus:bg-indigo-400 focus:text-white sm:focus:text-sm sm:focus:bg-indigo-400 sm:focus:text-white  sm:h-10 sm:w-[30%]"
+                            className={`h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "all" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
                             title="todos os projetos cadastrados"
                             onClick={returnAllProject}
-                        >Todos
+                        >
+                            Todos
                         </button>
                     </div>
                     
+                    {/* project list rendering condition */} 
                     {listRegisteredProject == 'open' && (
                         <div className="flex flex-col items-center">
                             <ul className="w-full">
@@ -178,13 +169,16 @@ export function HomePage() {
                                                 setprojectNameToBeListed(projects.name) 
                                             }}
                                         >
-                                        <CardProject 
-                                            id={projects.id}
-                                            status={projects.status}
-                                            title={projects.name}
-                                            description={projects.description}
-                                            renderComponent={setIsRenderingComponentTaskList}
-                                        />
+                                        {/*border condition select project*/}
+                                        <div className={`${projectIDToBeListed == projects.id ? 'border-[2px] border-indigo-300 rounded-lg'  : ''}`}>
+                                            <CardProject 
+                                                id={projects.id}
+                                                status={projects.status}
+                                                title={projects.name}
+                                                description={projects.description}
+                                                renderComponent={setIsRenderingComponentTaskList}
+                                            />
+                                        </div>
                                     </li>
                                     )
                                 })}
@@ -206,13 +200,16 @@ export function HomePage() {
                                                 setprojectNameToBeListed(projects.name)
                                             }}
                                         >
-                                        <CardProject 
-                                            id={projects.id}
-                                            status={projects.status}
-                                            title={projects.name}
-                                            description={projects.description}
-                                            renderComponent={setIsRenderingComponentTaskList}
-                                        />
+                                        {/*border condition select project*/}
+                                        <div className={`${projectIDToBeListed == projects.id ? 'border-2 border-indigo-300 rounded-lg' : ''}`}>
+                                            <CardProject 
+                                                id={projects.id}
+                                                status={projects.status}
+                                                title={projects.name}
+                                                description={projects.description}
+                                                renderComponent={setIsRenderingComponentTaskList}
+                                            />
+                                        </div>
                                     </li>
                                     )
                                 })}
@@ -233,94 +230,95 @@ export function HomePage() {
                                                 setprojectNameToBeListed(projects.name)
                                             }}
                                         >
-                                        <CardProject 
-                                            id={projects.id}
-                                            status={projects.status}
-                                            title={projects.name}
-                                            description={projects.description}
-                                            renderComponent={setIsRenderingComponentTaskList}
-                                        />
+                                        {/*border condition select project*/}
+                                        <div className={`${projectIDToBeListed == projects.id ? 'border-2 border-indigo-300 rounded-lg' : ''}`}>
+                                            <CardProject 
+                                                id={projects.id}
+                                                status={projects.status}
+                                                title={projects.name}
+                                                description={projects.description}
+                                                renderComponent={setIsRenderingComponentTaskList}
+                                            />
+                                        </div>
                                     </li>
                                     )
                                 })}
                             </ul>
                         </div>                        
                     )}
-                    
                 </div>
 
-                <div className="p-5 ml-5 bg-indigo-100 rounded-md border-[1px] border-indigo-300 w-[60%]">
-                    
-                            {isRenderingComponentTaskList == 1 && (
-                                <>
-                                    <div className="flex flex-row p-2 sm:p-10 justify-center items-center">
-                                        <div className="flex flex-col w-[50%] items-start justify-center">
-                                            <p className="text-gray-700 text-xs mb-1">Projeto:</p>
-                                            <h1 className="text-gray-700 font-semibold text-xs sm:text-2xl">{projectNameToBeListed}</h1>
-                                        </div>
-                                        <div className="w-28 flex flex-col items-center justify-center sm:w-[40%]">
-                                            <button
-                                                onClick={() => setIsRenderingComponentTaskList(4)}
-                                                className="bg-indigo-300 w-[90%] text-white text-xs py-1 px-1 rounded-md shadow-md sm:w-[80%] sm:h-10 sm:text-sm sm:font-semibold hover:bg-indigo-400">
-                                                Nova Tarefa
-                                            </button>
-                                        </div>
-                                        <div className="flex flex-col w-[50%] items-end justify-center">
-                                            <p className="text-gray-700 text-[8px] mb-1 sm:text-[11px]">Listar de forma</p>
-                                            <select 
-                                                name="status" 
-                                                className="h-5 w-5 border-[1px] border-indigo-400 rounded-sm text-xs text-indigo-400 sm:w-16 sm:h-7 sm:text-xs"
-                                                value={optionSelectedInTaskList}
-                                                onChange={(e) => SetOptionSelectedInTaskList(e.target.value)}
-                                            >
-                                                <option className="text-xs" value="open">abertos</option>
-                                                <option className="text-xs" value="closed">concluídos</option>
-                                                <option className="text-xs" value="all">todos</option>
-                                            </select>
-                                        </div>
+                {/* content div rendering condition -> */}                
+                <div className="p-5 ml-5 bg-white w-[60%] rounded-md">
+                    {/* open the list */}
+                    {isRenderingComponentTaskList == 1 && (
+                        <>
+                            <div className="flex flex-col p-2 sm:p-5 justify-center items-center">
+                                <div className="flex flex-row w-[100%] items-center justify-between py-6 border-b-2 mb-4">
+                                    <div className="flex flex-col items-start justify-center">
+                                        <p className="flex text-[11px] text-gray-500 sm:text-sm">Projeto: </p>
+                                        <h1 className="text-gray-600 font-semibold text-xs sm:text-2xl">{projectNameToBeListed}</h1>
                                     </div>
-
-                                    <div className="flex flex-col w-full">
-
-                                        {listAlltask?.length == 0 && (
-                                            <div className="w-full h-[200px] flex items-end justify-center">
-                                                <p className="text-sm sm:text-lg">Projeto {projectNameToBeListed} não tem nenhuma tarefa {optionSelectedInTaskList}!</p>
-                                            </div>
-                                        )}
-                                        
-                                        {listAlltask?.length != 0 && (
-                                            <ul>
-                                                {listAlltask?.map(tasks => {
-                                                    return (
-                                                        <li 
-                                                            key={tasks.id}
-                                                            className="mb-2"
-                                                        >                                           
-                                                        <CardTask 
-                                                            id={tasks.id}
-                                                            status={tasks.status}
-                                                            title={tasks.name}
-                                                            description={tasks.description} 
-                                                            date="02/05/2022"
-                                                            renderComponent={setIsRenderingComponentTaskList}                                       
-                                                        />
-                                                    </li>
-                                                    )
-                                                })}
-                                            </ul> 
-                                        )}
-               
+                                    <div className="flex flex-col items-end justify-center">
+                                        <p className="text-gray-700 text-[8px] mb-1 sm:text-[11px]">Listar de forma</p>
+                                        <select 
+                                            name="status" 
+                                            className="h-5 w-5 border-[1px] border-indigo-400 rounded-sm text-xs text-indigo-400 sm:w-16 sm:h-7 sm:text-xs"
+                                            value={optionSelectedInTaskList}
+                                            onChange={(e) => SetOptionSelectedInTaskList(e.target.value)}
+                                        >
+                                            <option className="text-xs" value="open">abertos</option>
+                                            <option className="text-xs" value="closed">concluídos</option>
+                                            <option className="text-xs" value="all">todos</option>
+                                        </select>
                                     </div>
-                                </>
-                            )}                                 
+                                </div>
+                                <div className="w-28 flex flex-col items-center justify-center sm:w-[40%]">
+                                    <button
+                                        onClick={() => setIsRenderingComponentTaskList(4)}
+                                        className="bg-indigo-300 w-[90%] text-white text-xs py-1 px-1 rounded-md shadow-md sm:w-[80%] sm:h-11 sm:text-sm sm:font-semibold hover:bg-indigo-400">
+                                        Adicionar nova tarefa
+                                    </button>
+                                </div>            
+                            </div>
 
+                            <div className="flex flex-col w-full">
+                                {listAlltask?.length == 0 && (
+                                    <div className="w-full h-[200px] flex items-end justify-center">
+                                        <p className="text-sm sm:text-lg">Projeto {projectNameToBeListed}, não tem nenhuma tarefa {optionSelectedInTaskList}!</p>
+                                    </div>
+                                )}                  
+                                {listAlltask?.length != 0 && (
+                                    <ul>
+                                        {listAlltask?.map(tasks => {
+                                            return (
+                                                <li 
+                                                    key={tasks.id}
+                                                    className="mb-2"
+                                                >                                           
+                                                <CardTask  
+                                                    id={tasks.id}
+                                                    status={tasks.status}
+                                                    title={tasks.name}
+                                                    description={tasks.description} 
+                                                    renderComponent={setIsRenderingComponentTaskList}                                        
+                                                />
+                                                </li>
+                                            )
+                                        })}
+                                    </ul> 
+                                )}
+                            </div>
+                        </>
+                    )}                                 
+                    {/* open project edit */}
                     {isRenderingComponentTaskList == 2 && (
                        <ProjectEdit
                             id={projectIDToBeListed}
                             renderComponent={setIsRenderingComponentTaskList}
                        />
                     )}
-
+                    {/* open div new project */}
                     {isRenderingComponentTaskList == 3 && (
                        <NewForm
                             type={'project'}
@@ -329,17 +327,15 @@ export function HomePage() {
                             renderComponent={setIsRenderingComponentTaskList}
                        />
                     )}
-
+                    {/* open div new task */}
                     {isRenderingComponentTaskList == 4 && (
                        <NewForm
                             type={'task'}
                             userLoggedID={userLogged}
                             projectID={projectIDToBeListed}
                             renderComponent={setIsRenderingComponentTaskList}
-                            />
+                        />
                     )}  
-
-
                 </div>
             </div>
             <Footer />

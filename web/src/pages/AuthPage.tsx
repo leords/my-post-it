@@ -24,7 +24,6 @@ export function AuthPage() {
                             </div>
 
                             <div className="w-full mt-16 md:mt-0 md:w-2/5">
-
                                 {renderingConditionSingUp == false && (
                                     <SignIn 
                                         renderComponent={setRenderingConditionSingUp}
@@ -36,7 +35,6 @@ export function AuthPage() {
                                         renderComponent={setRenderingConditionSingUp}
                                     />                        
                                 )}
- 
                             </div>
 
                         </div>

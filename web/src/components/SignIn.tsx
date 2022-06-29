@@ -7,13 +7,6 @@ interface Props {
     renderComponent: (type: boolean) => void
 }
 
-type User = {
-    id: string,
-    name: string,
-    email: string,
-    password: string
-}
-
 
 export function SignIn({renderComponent}:Props) {
 
@@ -35,13 +28,6 @@ export function SignIn({renderComponent}:Props) {
             onSubmit={handleLogin}
             className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 shadow-2xl px-7 rounded-xl">
             <h3 className="mb-6 text-2xl font-medium text-center">Entre com sua conta!</h3>
-            {!signed == false && (
-                <p>leonardo</p>
-            )}
-            {signed == false && (
-                <p>false</p>
-
-            )}
             <input 
                 type="text" 
                 className="block w-full px-4 py-3 mb-4 border border-transparent border-gray-200 focus:ring focus:ring-indigo-300 focus:outline-none rounded-md"

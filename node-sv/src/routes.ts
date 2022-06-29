@@ -25,7 +25,7 @@ router.post('/edit-user', new UpdateUserController().handleEditName)
 router.post('/delete-user', new DeleteUserController().handle)
 //Read Retorno
 router.get('/user-all', new ReadUserController().handleAll)
-router.get('/user-unique', new ReadUserController().handleUnique)
+router.post('/user-unique', new ReadUserController().handleUnique)
 
 
 //ROUTES TASK.

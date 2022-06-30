@@ -1,6 +1,9 @@
 import { ArrowLeft } from "phosphor-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Auth/AuthContext";
 import { api } from "../lib/api";
+
+import add from '../assets/img/add.png';
 
 
 interface Props {
@@ -16,6 +19,7 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
 
     const [name, setName] = useState<string>()
     const [description, setDescription] = useState<string>()
+    const { updateList ,setUpdateList } = useContext(AuthContext)
 
     const [conditionAlertInputNameNull, setConditionAlertInputNameNull] = useState<boolean>(false)
     const [conditionAlertInputDescriptionNull, setConditionAlertInputDescriptionNull] = useState<boolean>(false)
@@ -31,6 +35,7 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
                             project: projectID,
                             user: userLoggedID,       
                         });
+                        setUpdateList(updateList + 1)
                         alert('Tarefa cadastrada!')
                         renderComponent(1)
                     } catch (error) {
@@ -46,6 +51,7 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
                             description: description,
                             author: userLoggedID,
                         });
+                        setUpdateList(updateList + 1)
                         alert('projeto cadastrado!')
                         renderComponent(1)
                     } catch (error) {
@@ -74,10 +80,10 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
     
 
     return(
-        <div className="max-w-[500px] h-auto mx-auto bg-slate-300">
+        <div className="max-w-[500px] h-auto mx-auto ">
 
             {type == 'task' && (
-                <div className="flex flex-col p-6 pt-10  items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
+                <div className="flex flex-col p-6 pt-10 border items-center justify-center bg-white w-full gap-2 rounded-lg shadow-md">
                     <div className="flex flex-row w-full justify-between">
                         <ArrowLeft 
                             size={22}
@@ -85,12 +91,13 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
                         />
                     </div>
                     <div className="w-full flex flex-col items-center justify-center m-1 p-1 text-sm font-medium sm:text-lg">
+                        <img className="w-60 mb-10" src={add} alt="" />
                         <h1 className="text-xl ">Nova Tarefa</h1>
-                        <p className="p-1 text-xs text-center text-indigo-400">Descreva as definições de sua nova tarefa!</p>
+                        <p className="p-1 text-xs text-center text-indigo-400">Descreva as caracteristicas de sua nova tarefa!</p>
                     </div>
 
-                    <div className="w-full flex flex-col py-10 m-1 border rounded-md sm:p-5">
-                        <div className="w-full flex flex-col justify-center items-center gap-2 sm:gap-1 sm:py-12">
+                    <div className="w-full flex flex-col py-2 m-1 rounded-md sm:p-5">
+                        <div className="w-full flex flex-col justify-center items-center gap-2 sm:py-1">
                             {conditionAlertInputNameNull == false && (
                                 <input 
                                     title="Insira o nome do projeto"
@@ -167,40 +174,41 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
 
 
             {type == 'project' && (
-                <div className="flex flex-col p-6 pt-10  items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
+                <div className="flex flex-col p-6 pt-10 border items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
                     <div className="flex flex-row w-full justify-between">
                         <ArrowLeft 
                             size={22}
                             onClick={() => renderComponent(1)}
                         />
                     </div>
-                    <div className="w-full flex flex-col items-center justify-center m-1 p-1 text-sm font-medium sm:text-lg">
+                    <div className="w-full flex flex-col items-center justify-center p-1 text-sm font-medium sm:text-lg">
+                        <img className="w-60 mb-5" src={add} alt="" />
                         <h1 className="text-xl ">Novo projeto</h1>
-                        <p className="p-1 text-xs text-center text-indigo-400">Descreva as definições de seu novo projeto!</p>
+                        <p className="p-1 text-xs text-center text-indigo-400">Descreva seu novo projeto!</p>
                     </div>
 
-                    <div className="w-full flex flex-col py-10 m-1 border rounded-md sm:p-5">
-                        <div className="w-full flex flex-col justify-center items-center gap-2 sm:py-12">
+                    <div className="w-full flex flex-col py-2 m-1 rounded-md sm:p-5">
+                        <div className="w-full flex flex-col justify-center items-center gap-2 sm:py-1">
                             {conditionAlertInputNameNull == false && (
                                 <input 
                                     title="Insira o nome do projeto"
-                                    placeholder="Nome da tarefa"
+                                    placeholder="Nome do projeto"
                                     name="name"
-                                    className="bg-gray-50 w-[70%] h-8 text-xs text-left p-4 border border-indigo-400 rounded-md mb-2"
+                                    className="bg-gray-50 w-[90%] h-8 text-xs text-left p-4 border border-indigo-400 rounded-md mb-2"
                                     type="text"
                                     onChange={(e) => setName(e.target.value)}
                                 />                                  
                             )}
                             {conditionAlertInputNameNull == true && (
                                 <>
-                                <div className="w-[70%] flex">
+                                <div className="w-[90%] flex">
                                     <p className="text-[10px] text-red-600">* favor preecha está lacuna</p>
                                 </div>
                                 <input 
                                     title="Insira o nome do projeto"
-                                    placeholder="Nome da tarefa"
+                                    placeholder="Nome do projeto"
                                     name="name"
-                                    className="bg-gray-50 w-[70%] h-8 text-xs text-left p-4 border border-red-500 rounded-md"
+                                    className="bg-gray-50 w-[90%] h-8 text-xs text-left p-4 border border-red-500 rounded-md"
                                     type="text"
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -210,27 +218,27 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
                             {conditionAlertInputDescriptionNull == false && (
                                 <input
                                     title="Insira aqui a descrição do projeto"
-                                    placeholder="Descrição da tarefa"
-                                    className="bg-gray-50 w-[70%] h-24 text-xs text-left p-4 border border-indigo-400 rounded-md"
+                                    placeholder="Descrição do projeto"
+                                    className="bg-gray-50 w-[90%] h-24 text-xs text-left p-4 border border-indigo-400 rounded-md"
                                     type="text"
                                     onChange={(e) => setDescription(e.target.value)} 
                                 />                                
                             )}
                             {conditionAlertInputDescriptionNull == true && (
                                 <>
-                                <div className="w-[70%] flex">
+                                <div className="w-[90%] flex">
                                     <p className="text-[10px] text-red-600">* favor preecha está lacuna</p>
                                 </div>
                                 <input
                                     title="Insira aqui a descrição do projeto"
-                                    placeholder="Descrição da tarefa"
-                                    className="w-[70%] h-24 text-xs text-left p-4 border border-red-500 rounded-md"
+                                    placeholder="Descrição do projeto"
+                                    className="w-[90%] h-24 text-xs text-left p-4 border border-red-500 rounded-md"
                                     type="text"
                                     onChange={(e) => setDescription(e.target.value)} 
                                 />
                                 </>
                             )}
-                            <div className="flex flex-row w-[70%] items-center justify-between mt-6">
+                            <div className="flex flex-row w-[90%] items-center justify-between mt-6">
                                 <button
                                     onClick={saveNewRegister}
                                     className="bg-indigo-300 w-[45%] h-8 text-white p-2 text-xs rounded-md hover:bg-indigo-400">

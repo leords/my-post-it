@@ -1,7 +1,8 @@
 import { ArrowLeft, Trash } from "phosphor-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { render } from "react-dom";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../Auth/AuthContext";
 import { api } from "../lib/api";
 
 
@@ -30,6 +31,8 @@ export function ProjectEdit({id, renderComponent}:Props) {
     const [countTaskOpen, setCountTaskOpen] = useState<string|null>('0')
     const [countTaskClosed, setCountTaskClosed] = useState<string|null>('0')
     const [countTaskAll, setCountTaskAll] = useState<string|null>('0')
+
+    const {updateList, setUpdateList} = useContext(AuthContext)
 
     useEffect (() => {
         async function returnProject() {
@@ -63,6 +66,7 @@ export function ProjectEdit({id, renderComponent}:Props) {
     async function deleteProject() {
         try {
             await api.post('/delete-project', { id: id });
+            setUpdateList(updateList + 1)
             renderComponent(1);
         } catch (error) {
             alert(error)
@@ -75,6 +79,7 @@ export function ProjectEdit({id, renderComponent}:Props) {
                 id: id,
                 name: newName
             });
+            setUpdateList(updateList + 1)
         } catch (error) {
             alert(error)
         }
@@ -85,7 +90,8 @@ export function ProjectEdit({id, renderComponent}:Props) {
             await api.post('/project-update-description', {
                 id: id,
                 description: newDescription
-            });     
+            }); 
+            setUpdateList(updateList + 1)    
         } catch (error) {
            alert(error) 
         }
@@ -98,6 +104,7 @@ export function ProjectEdit({id, renderComponent}:Props) {
                 id: id, 
                 status: newStatus 
             });
+            setUpdateList(updateList + 1)
             renderComponent(1)
         } catch (error) {
             alert(error)

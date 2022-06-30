@@ -22,7 +22,7 @@ class AuthLoginUserService {
                 
                 return {user, token} 
             } 
-                return false
+                return authUser
         } catch (error) {
             alert('Auth not invalid!')
         }

@@ -33,7 +33,7 @@ return(
                 className="text-indigo-400 font-medium text-sm cursor-pointer"
                 title="Abrir descrições gerais do projeto"
             >
-                <p className="text-xs hover:text-indigo-600 pr-1 sm:p-0">abrir</p>
+                <p className="text-xs hover:text-indigo-600 pr-1 sm:p-0">detalhes</p>
             </a>
             {status == true && (
                 <Warning 

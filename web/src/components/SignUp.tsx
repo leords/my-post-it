@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import { Divide } from "phosphor-react";
+import { FormEvent, useState } from "react";
 import { api } from "../lib/api";
 
 interface Props {
@@ -10,16 +11,17 @@ export function SignUp({renderComponent}:Props) {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [existingUserCondition, setExistingUserCondition] = useState<boolean>()
+    const [existingUserCondition, setExistingUserCondition] = useState<boolean>(true)
     const [existenceAlertRenderCondition, setExistenceAlertRenderCondition] = useState<Boolean>(false)
 
-    async function createNewUser() {
-
+    async function createNewUser(e: FormEvent) {
+        e.preventDefault();
+        
         await api.post('/user-unique', {
             email:email
         }).then(response => setExistingUserCondition(response.data) );
 
-        if (existingUserCondition == true) {
+        if (existingUserCondition == false) {
             try {
                 await api.post('/new-user', {
                     name: name,
@@ -30,7 +32,8 @@ export function SignUp({renderComponent}:Props) {
             } catch (error) {
                 alert('Problema encontrado, 401')
             }
-        } else {
+        } 
+        else if (existingUserCondition == true) {
             setExistenceAlertRenderCondition(true);
         }
 
@@ -41,7 +44,6 @@ export function SignUp({renderComponent}:Props) {
         <form onSubmit={createNewUser}
             className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 shadow-2xl px-7 rounded-xl">
             <h3 className="mb-6 text-2xl font-medium text-center">Crie sua conta!</h3>
-            
             <input 
                 type="text"
                 className="block w-full px-4 py-3 mb-4 border border-transparent border-gray-200 focus:ring focus:ring-indigo-300 focus:outline-none rounded-md"
@@ -76,12 +78,14 @@ export function SignUp({renderComponent}:Props) {
             <div className="block">
                 <button 
                     className="w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500"
-                    type="submit">Cadastrar-se</button>
+                    type="submit">Cadastrar-se
+                </button>
             </div>
             <div className="w-full flex ">
-                <a onClick={()=> renderComponent(false)}
+                <button 
+                    onClick={()=> renderComponent(false)}
                     className="w-full mt-4 text-sm text-center text-blue-500 underline cursor-pointer">Já tenho uma conta?
-                </a>
+                </button>
             </div>
         </form>
     )

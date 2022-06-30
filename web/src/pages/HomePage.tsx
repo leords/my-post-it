@@ -1,4 +1,5 @@
-import {useEffect, useState } from "react";
+import {useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Auth/AuthContext";
 import { CardProject } from "../components/CardProject";
 import { CardTask } from "../components/CardTask";
 import { Footer } from "../components/Footer";
@@ -7,6 +8,7 @@ import { NewForm } from "../components/NewForm";
 import { ProjectEdit } from "../components/ProjectEdit";
 import { api } from "../lib/api";
 
+import empty from '../assets/img/empty.png';
 
 type project = {
     id: string
@@ -39,10 +41,11 @@ export function HomePage() {
     const [listAlltask, setListAllTask] = useState<task[] | null>(null)
     const [optionSelectedInTaskList, SetOptionSelectedInTaskList] = useState<string >('all')
 
-    const userLogged = '98419119-1e74-4c09-8a59-f9420e1fdd2e';
+    const idUserAuth = localStorage.getItem('idUser')
+    const {updateList} = useContext(AuthContext)
 
     useEffect(() => {
-        api.post('/project-all', { id: userLogged } ).then(response => {
+        api.post('/project-all', { id: idUserAuth } ).then(response => {
             setListAllProject(response.data)
         });
 
@@ -51,7 +54,7 @@ export function HomePage() {
                 setListAllTask(response.data)
             });
         }
-    },[projectIDToBeListed]
+    },[projectIDToBeListed, updateList]
     );
 
     useEffect(() => {
@@ -72,12 +75,12 @@ export function HomePage() {
                 setListAllTask(response.data)
             });
         }
-    },[optionSelectedInTaskList]
+    },[optionSelectedInTaskList, updateList]
     );
 
     async function returnOpenProject() {
         try {
-            await api.post('/project-on', {id: userLogged}).then(response => {
+            await api.post('/project-on', {id: idUserAuth}).then(response => {
                 setListOpenProject(response.data)
             });
             setListRegisteredProject('open')
@@ -90,7 +93,7 @@ export function HomePage() {
 
     async function returnClosedProject() {
         try {
-            await api.post('/project-off', {id: userLogged}).then(response => {
+            await api.post('/project-off', {id: idUserAuth}).then(response => {
                 setLisOffProject(response.data)
             }); 
             setListRegisteredProject('closed')
@@ -102,7 +105,7 @@ export function HomePage() {
 
     async function returnAllProject() {
         try {
-            await api.post('/project-all', {id: userLogged}).then(response => {
+            await api.post('/project-all', {id: idUserAuth}).then(response => {
                 setListAllProject(response.data)
             });
             setListRegisteredProject('all')
@@ -284,8 +287,11 @@ export function HomePage() {
 
                             <div className="flex flex-col w-full">
                                 {listAlltask?.length == 0 && (
-                                    <div className="w-full h-[200px] flex items-end justify-center">
-                                        <p className="text-sm sm:text-lg">Projeto {projectNameToBeListed}, não tem nenhuma tarefa {optionSelectedInTaskList}!</p>
+                                    <div className="flex flex-col w-full h-[200px] items-center justify-center">
+                                        <div className="flex p-2 mt-60">
+                                            <img  className="w-[250px] sm:w-[300px]" src={empty} alt="" />
+                                        </div>
+                                        <p className="font-medium text-indigo-400 text-sm sm:text-lg">Não encontramos nenhuma tarefa para este projeto!</p>
                                     </div>
                                 )}                  
                                 {listAlltask?.length != 0 && (
@@ -310,7 +316,8 @@ export function HomePage() {
                                 )}
                             </div>
                         </>
-                    )}                                 
+                    )}
+
                     {/* open project edit */}
                     {isRenderingComponentTaskList == 2 && (
                        <ProjectEdit
@@ -318,20 +325,22 @@ export function HomePage() {
                             renderComponent={setIsRenderingComponentTaskList}
                        />
                     )}
+
                     {/* open div new project */}
                     {isRenderingComponentTaskList == 3 && (
                        <NewForm
                             type={'project'}
-                            userLoggedID={userLogged}
+                            userLoggedID={idUserAuth}
                             projectID={projectIDToBeListed}
                             renderComponent={setIsRenderingComponentTaskList}
                        />
                     )}
+
                     {/* open div new task */}
                     {isRenderingComponentTaskList == 4 && (
                        <NewForm
                             type={'task'}
-                            userLoggedID={userLogged}
+                            userLoggedID={idUserAuth}
                             projectID={projectIDToBeListed}
                             renderComponent={setIsRenderingComponentTaskList}
                         />

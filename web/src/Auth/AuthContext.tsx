@@ -19,6 +19,8 @@ interface AuthContextData {
     user: object | null;
     signIn(email:string, password: string): Promise<void>;
     signOut(): void;
+    updateList: number;
+    setUpdateList: (newState: number) => void
 
 }
 
@@ -29,6 +31,7 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const navigate = useNavigate()
     const [user, setUser] = useState<User | null>(null);
+    const [updateList, setUpdateList] = useState(0);
 
      useEffect (() => {
 
@@ -69,7 +72,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     return(
-        <AuthContext.Provider value={{signed: !!user, user, signIn, signOut}}>
+        <AuthContext.Provider value={{signed: !!user, user, signIn, signOut, updateList, setUpdateList}}>
             {children}
         </AuthContext.Provider>
     )

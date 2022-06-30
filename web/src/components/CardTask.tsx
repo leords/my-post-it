@@ -1,8 +1,6 @@
-import { endOfDay, format, formatISO, isAfter } from "date-fns";
-import { parseISO } from "date-fns/esm";
-import ptBR from "date-fns/locale/pt-BR";
 import { CheckCircle, Trash, Warning, XCircle } from "phosphor-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Auth/AuthContext";
 import { api } from "../lib/api";
 
 interface Props {
@@ -19,15 +17,16 @@ export function CardTask ({
     status,
     title, 
     description, 
-
     renderComponent} : Props) {
 
     const [isRenderViewEdit, setIsRenderViewEdit] = useState(false)
     const [checkBox, setCheckBox] = useState(true)
+    const {updateList, setUpdateList} = useContext(AuthContext)
 
     async function DeleteTask () {
         try {
             await api.post('delete-task', { id });
+            setUpdateList(updateList + 1)
             renderComponent(1)
         } catch (error) {
           alert(error)  
@@ -37,8 +36,9 @@ export function CardTask ({
     async function ChangingStatus() {
         try {
             await api.post('/edit-task-f', { id });
+            setUpdateList(updateList + 1)
         } catch (error) {
-            
+            alert(error)
         }
     }
 
@@ -74,8 +74,6 @@ export function CardTask ({
                         />
                         )}
                     </div>
-{/*                     <dt className="text-xs text-gray-500 text-center p-1 sm:p-0">Publicado</dt>
-                        <dd className="text-xs text-gray-500 p-1 sm:p-0">{''}</dd> */}
                 </div>
             </a>
 

@@ -9,9 +9,6 @@ class ReadProjectService {
         const readProject = await prismaClient.project.findMany({
             where: {
                 author: id_project
-            },
-            orderBy: {
-                date_start: "desc"
             }
         });
         return readProject
@@ -33,9 +30,6 @@ class ReadProjectService {
             where: {
                 author: id_project,
                 status: false
-            },
-            orderBy: {
-                date_start: "desc"
             }
         });
         return readProject
@@ -47,9 +41,6 @@ class ReadProjectService {
             where: {
                 author: id_project,
                 status: true
-            },
-            orderBy: {
-                date_start: "desc"
             }
         });
         return readProject
@@ -64,9 +55,6 @@ class ReadProjectService {
         const readProject = await prismaClient.project.count({
             where: {
                 author: id_project
-            },
-            orderBy: {
-                date_start: "desc"
             }
         });
         return readProject
@@ -78,9 +66,6 @@ class ReadProjectService {
             where: {
                 author: id_project,
                 status: false
-            },
-            orderBy: {
-                date_start: "desc"
             }
         });
         return readProject
@@ -92,9 +77,6 @@ class ReadProjectService {
             where: {
                 author: id_project,
                 status: true
-            },
-            orderBy: {
-                date_start: "desc"
             }
         });
         return readProject

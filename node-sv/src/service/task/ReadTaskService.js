@@ -13,9 +13,6 @@ class ReadTaskService {
             where: {
                 project: project_id
             },
-            orderBy: {
-                date_start: "desc"
-            },
         });
         return newRead;
     }
@@ -25,10 +22,7 @@ class ReadTaskService {
             where: {
                 project: project_id,
                 status: true
-            },
-            orderBy: {
-                name: "desc"
-            },
+            }
         });
         return newRead;
     }
@@ -38,10 +32,7 @@ class ReadTaskService {
             where: {
                 project: project_id,
                 status: false
-            },
-            orderBy: {
-                name: "desc"
-            },
+            }
         });
         return newRead;
     }
@@ -51,10 +42,7 @@ class ReadTaskService {
         const newRead = await prisma_1.default.task.count({
             where: {
                 project: project_id
-            },
-            orderBy: {
-                date_start: "desc"
-            },
+            }
         });
         return newRead;
     }
@@ -64,10 +52,7 @@ class ReadTaskService {
             where: {
                 project: project_id,
                 status: true
-            },
-            orderBy: {
-                name: "desc"
-            },
+            }
         });
         return newRead;
     }
@@ -77,10 +62,7 @@ class ReadTaskService {
             where: {
                 project: project_id,
                 status: false
-            },
-            orderBy: {
-                name: "desc"
-            },
+            }
         });
         return newRead;
     }

@@ -21,27 +21,30 @@ export function SignUp({renderComponent}:Props) {
             email:email
         }).then(response => setExistingUserCondition(response.data) );
 
-        if (existingUserCondition == false) {
+        if (existingUserCondition == true) {
+            setExistenceAlertRenderCondition(true);
+        } 
+        else {
+            setExistenceAlertRenderCondition(false);
             try {
                 await api.post('/new-user', {
                     name: name,
-                    email:email, 
+                    email: email, 
                     password: password
                 });
                 alert('Sua conta foi criada com sucesso!')
+                renderComponent(true)
             } catch (error) {
                 alert('Problema encontrado, 401')
             }
-        } 
-        else if (existingUserCondition == true) {
-            setExistenceAlertRenderCondition(true);
         }
 
     }
 
     
     return(
-        <form onSubmit={createNewUser}
+        <form 
+            onSubmit={createNewUser}
             className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 shadow-2xl px-7 rounded-xl">
             <h3 className="mb-6 text-2xl font-medium text-center">Crie sua conta!</h3>
             <input 
@@ -78,7 +81,8 @@ export function SignUp({renderComponent}:Props) {
             <div className="block">
                 <button 
                     className="w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500"
-                    type="submit">Cadastrar-se
+                    type="submit">
+                        Cadastrar-se
                 </button>
             </div>
             <div className="w-full flex ">

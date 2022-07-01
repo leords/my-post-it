@@ -75,12 +75,11 @@ export function SignIn({renderComponent}:Props) {
                 <button 
                     className="w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500"
                     type="submit"
-                    >Faça seu Login</button>
-                    
+                    >Faça seu Login
+                </button>    
             </div>
             <p className="w-full mt-4 text-sm text-center text-gray-500">Não tem uma conta ainda?
                 <button 
-                    
                     onClick={ ()=> renderComponent(true)}
                     className="text-blue-500 underline"> 
                     Clique aqui

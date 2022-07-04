@@ -30,8 +30,17 @@ Ferramentas
 
 ## 💻 Projeto
 
-Post-it é uma aplicação onde o usuário pode controlar seus projetos com tarefas criadas por ele mesmo.
+Post-it é uma aplicação onde é possivel controlar seus projetos através de tarefas.
+
+Algumas funcionalidades da aplicação:
+
+- Criar usuários.
+- CRUD de projetos.
+- CRUD de Tarefas.
+- Controle de tarefas por projeto (abertas, fechadas, total).
+- Status de projeto e de tarefas (Concluída ou Finalizada).
+- Filtro entre projetos ou tarefas (abertas, fechadas, todas).
 
 
 
-Desenvolvido por Leords.
+Objetivo deste projeto é apenas praticar e adquitir conhecimento, desenvolvido por Leords.

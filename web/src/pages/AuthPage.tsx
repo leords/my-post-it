@@ -13,7 +13,7 @@ export function AuthPage() {
     return (
         <div>
             <div className="flex flex-col items-center justify-center my-0.5 h-screen bg-white" >
-                <div className="w-full px-8 py-16 xl:px-8">
+                <div className="w-full px-8 xl:px-8">
                     <div className="max-w-5xl mx-auto">
                         <div className="flex flex-col items-center md:flex-row">
 
@@ -24,11 +24,11 @@ export function AuthPage() {
                                 </h2>
                             
                                 <img className="w-[450px] rounded-md" src={home} alt="" />
-                                <p className="text-xl text-gray-600 mt-4 px-10 sm:px-0 md:pr-16">Uma forma simples de criar seus projetos, tarefa à tarefa. </p>
+                                <p className="text-xl text-gray-600 mt-2 px-10 sm:px-0 md:pr-16">Uma forma simples de criar seus projetos, tarefa à tarefa. </p>
                             </div>
 
 
-                            <div className="w-full mt-16 md:mt-0 md:w-2/5">
+                            <div className="w-full mt-5 md:mt-0 md:w-2/5">
                                 {renderingConditionSingUp == false && (
                                     <SignIn 
                                         renderComponent={setRenderingConditionSingUp}

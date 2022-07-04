@@ -1,3 +1,4 @@
+import { CircleNotch } from "phosphor-react";
 import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/AuthContext";
@@ -15,16 +16,25 @@ export function SignIn({renderComponent}:Props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [conditionAlertRender, setConditionAlertRender] = useState<boolean>(false)
+    const [loading, setloading] = useState(false)
 
+    const timer = setInterval(handleLogin, 5000);
 
     async function handleLogin(e: FormEvent) {
         e.preventDefault();
-
+        setloading(true)
         signIn(email, password)
 
-        user == null ? setConditionAlertRender(true) : setConditionAlertRender(false)
+        
+        setTimeout(() => {
+            user == null ? setConditionAlertRender(true) 
+                : setConditionAlertRender(false)
 
-        navigate('/home')
+            setloading(false)
+
+            user != null ? navigate('/home')
+                : navigate('/')
+        }, 2000)
     }
 
 
@@ -42,6 +52,7 @@ export function SignIn({renderComponent}:Props) {
                         type="text"
                         className="block w-full px-4 py-3 mb-4 border border-transparent border-red-600 focus:ring focus:ring-indigo-300 focus:outline-none rounded-md"
                         placeholder="Seu Email" 
+                        value={email} 
                         onChange={(e)=> setEmail(e.target.value)}
                     />
                     <input 
@@ -72,10 +83,18 @@ export function SignIn({renderComponent}:Props) {
                 </>
             }
             <div className="block">
-                <button 
-                    className="w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500"
-                    type="submit"
-                    >Faça seu Login
+            <button 
+                    className={`flex flex-row justify-center items-center gap-4 w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500 ${loading == true && ('disabled:opacity-75')}`}
+                    type="submit">
+                        <div className={`${loading==false && ('hidden')} ${loading==true && ('animate-spin')}`}>
+                            <CircleNotch 
+                                size={24} 
+                                weight={"bold"}
+                            />
+                        </div>
+                        <div className="">
+                            {loading == false? 'Faça seu Login' : 'Carregando'}
+                        </div>
                 </button>    
             </div>
             <p className="w-full mt-4 text-sm text-center text-gray-500">Não tem uma conta ainda?

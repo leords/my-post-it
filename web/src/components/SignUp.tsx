@@ -1,4 +1,4 @@
-import { Divide } from "phosphor-react";
+import { CircleNotch, Divide } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { api } from "../lib/api";
 
@@ -11,34 +11,41 @@ export function SignUp({renderComponent}:Props) {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [existingUserCondition, setExistingUserCondition] = useState<boolean>(true)
+    const [existingUserCondition, setExistingUserCondition] = useState<boolean>(false)
     const [existenceAlertRenderCondition, setExistenceAlertRenderCondition] = useState<Boolean>(false)
+    const [loading, setloading] = useState(false)
 
     async function createNewUser(e: FormEvent) {
         e.preventDefault();
         
+        setloading(true)
         await api.post('/user-unique', {
             email:email
         }).then(response => setExistingUserCondition(response.data) );
 
-        if (existingUserCondition == true) {
-            setExistenceAlertRenderCondition(true);
-        } 
-        else {
-            setExistenceAlertRenderCondition(false);
-            try {
-                await api.post('/new-user', {
-                    name: name,
-                    email: email, 
-                    password: password
-                });
-                alert('Sua conta foi criada com sucesso!')
-                renderComponent(true)
-            } catch (error) {
-                alert('Problema encontrado, 401')
+        setTimeout(() => {    
+            if (existingUserCondition == true) {
+                setExistenceAlertRenderCondition(true);
+                setloading(false)
+            } 
+    
+            else if (existingUserCondition == false) {
+                setExistenceAlertRenderCondition(false);
+                try {
+                     api.post('/new-user', {
+                        name: name,
+                        email: email, 
+                        password: password
+                    });
+                    alert('Sua conta foi criada com sucesso!')
+                    setloading(false)
+                    renderComponent(false)
+                } catch (error) {
+                    alert('Problema encontrado, 401')
+                }
+                setloading(false)
             }
-        }
-
+        }, 2000)
     }
 
     
@@ -80,15 +87,24 @@ export function SignUp({renderComponent}:Props) {
             />
             <div className="block">
                 <button 
-                    className="w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500"
+                    className={`flex flex-row justify-center items-center gap-4 w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500 ${loading == true && ('disabled:opacity-75')}`}
                     type="submit">
-                        Cadastrar-se
+                        <div className={`${loading==false && ('hidden')} ${loading==true && ('animate-spin')}`}>
+                            <CircleNotch 
+                                size={24} 
+                                weight={"bold"}
+                            />
+                        </div>
+                        <div className="">
+                            {loading == false? 'Cadastrar-se' : 'Carregando'}
+                        </div>
                 </button>
             </div>
             <div className="w-full flex ">
                 <button 
                     onClick={()=> renderComponent(false)}
-                    className="w-full mt-4 text-sm text-center text-blue-500 underline cursor-pointer">Já tenho uma conta?
+                    className="w-full mt-4 text-sm text-center text-blue-500 underline cursor-pointer">
+                        Já tenho uma conta?
                 </button>
             </div>
         </form>

@@ -5,7 +5,9 @@ import cors from 'cors';
 const app = express();
 
 
-app.listen(4000, () => console.log('Server is running 4000, please initial yours testing'));
+app.listen(process.env.PORT || 4000, () => {
+    console.log('Server is running 4000, please initial yours testing')
+});
 
 
 // informando o express que ele vai receber requisições em Json.

@@ -23,7 +23,6 @@ model Project {
   name        String
   description String
   status      Boolean   @default(true)
-  date_start  DateTime  @default(now())
   author      String
   user        User      @relation(fields: [author], references: [id])
   tasks       Task[]
@@ -36,7 +35,6 @@ model Task {
   name        String
   description String
   status      Boolean   @default(true)
-  date_start  DateTime  @default(now())
   project     String
   author      Project   @relation(fields: [project], references: [id])
   user        String       

@@ -1,4 +1,4 @@
-import { Divide } from "phosphor-react";
+import { CircleNotch, Divide } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { api } from "../lib/api";
 
@@ -11,37 +11,47 @@ export function SignUp({renderComponent}:Props) {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [existingUserCondition, setExistingUserCondition] = useState<boolean>(true)
+    const [existingUserCondition, setExistingUserCondition] = useState<boolean>(false)
     const [existenceAlertRenderCondition, setExistenceAlertRenderCondition] = useState<Boolean>(false)
+    const [loading, setloading] = useState(false)
 
     async function createNewUser(e: FormEvent) {
         e.preventDefault();
         
+        setloading(true)
         await api.post('/user-unique', {
             email:email
         }).then(response => setExistingUserCondition(response.data) );
 
-        if (existingUserCondition == false) {
-            try {
-                await api.post('/new-user', {
-                    name: name,
-                    email:email, 
-                    password: password
-                });
-                alert('Sua conta foi criada com sucesso!')
-            } catch (error) {
-                alert('Problema encontrado, 401')
+        setTimeout(() => {    
+            if (existingUserCondition == true) {
+                setExistenceAlertRenderCondition(true);
+                setloading(false)
+            } 
+    
+            else if (existingUserCondition == false) {
+                setExistenceAlertRenderCondition(false);
+                try {
+                     api.post('/new-user', {
+                        name: name,
+                        email: email, 
+                        password: password
+                    });
+                    alert('Sua conta foi criada com sucesso!')
+                    setloading(false)
+                    renderComponent(false)
+                } catch (error) {
+                    alert('Problema encontrado, 401')
+                }
+                setloading(false)
             }
-        } 
-        else if (existingUserCondition == true) {
-            setExistenceAlertRenderCondition(true);
-        }
-
+        }, 2000)
     }
 
     
     return(
-        <form onSubmit={createNewUser}
+        <form 
+            onSubmit={createNewUser}
             className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 shadow-2xl px-7 rounded-xl">
             <h3 className="mb-6 text-2xl font-medium text-center">Crie sua conta!</h3>
             <input 
@@ -77,14 +87,24 @@ export function SignUp({renderComponent}:Props) {
             />
             <div className="block">
                 <button 
-                    className="w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500"
-                    type="submit">Cadastrar-se
+                    className={`flex flex-row justify-center items-center gap-4 w-full px-3 py-4 font-medium text-white bg-indigo-400 rounded-md hover:bg-indigo-500 ${loading == true && ('disabled:opacity-75')}`}
+                    type="submit">
+                        <div className={`${loading==false && ('hidden')} ${loading==true && ('animate-spin')}`}>
+                            <CircleNotch 
+                                size={24} 
+                                weight={"bold"}
+                            />
+                        </div>
+                        <div className="">
+                            {loading == false? 'Cadastrar-se' : 'Carregando'}
+                        </div>
                 </button>
             </div>
             <div className="w-full flex ">
                 <button 
                     onClick={()=> renderComponent(false)}
-                    className="w-full mt-4 text-sm text-center text-blue-500 underline cursor-pointer">Já tenho uma conta?
+                    className="w-full mt-4 text-sm text-center text-blue-500 underline cursor-pointer">
+                        Já tenho uma conta?
                 </button>
             </div>
         </form>

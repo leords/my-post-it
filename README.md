@@ -36,9 +36,9 @@ Algumas funcionalidades da aplicação:
 
 - Criar usuários.
 - CRUD de projetos.
-- CRUD de Tarefas.
+- CRUD de tarefas.
 - Controle de tarefas por projeto (abertas, fechadas, total).
-- Status de projeto e de tarefas (Concluída ou Finalizada).
+- Status de projeto e de tarefas (aberto ou concluído).
 - Filtro entre projetos ou tarefas (abertas, fechadas, todas).
 
 

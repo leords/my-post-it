@@ -46,9 +46,6 @@ export function AuthPage() {
                     </div>
                 </div>
             </div>
-            <div className="shadow-md">
-                <Footer />
-            </div>
         </div>
     )   
 }

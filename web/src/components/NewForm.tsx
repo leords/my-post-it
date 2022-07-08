@@ -39,7 +39,6 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
                             user: userLoggedID,       
                         });
                         setUpdateList(updateList + 1)
-                        alert('Tarefa cadastrada!')
                         setloading(false)
                         renderComponent(1)
                     } catch (error) {
@@ -57,7 +56,6 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
                             author: userLoggedID,
                         });
                         setUpdateList(updateList + 1)
-                        alert('projeto cadastrado!')
                         setloading(false)
                         renderComponent(1)
                     } catch (error) {
@@ -93,7 +91,7 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
 
             {type == 'task' && (
                 <div className="flex flex-col p-6 pt-10 border items-center justify-center bg-white w-full gap-2 rounded-lg shadow-md">
-                    <div className={`${loading == true ? ('absolute animate-spin') : ('hidden')}`}>
+                    <div className={`${loading == true ? ('absolute animate-spin') : ('hidden')} text-indigo-400`}>
                             <CircleNotch 
                                 size={36} 
                                 weight={"bold"}
@@ -189,7 +187,7 @@ export function NewForm({type, userLoggedID, projectID, renderComponent}:Props) 
 
             {type == 'project' && (
                 <div className="flex flex-col p-6 pt-10 border items-center justify-center bg-white w-full gap-2 rounded-md shadow-md">
-                    <div className={`${loading == true ? ('absolute animate-spin') : ('hidden')}`}>
+                    <div className={`${loading == true ? ('absolute animate-spin') : ('hidden')} text-indigo-400`}>
                         <CircleNotch 
                             size={36} 
                             weight={"bold"}

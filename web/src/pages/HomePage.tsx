@@ -9,6 +9,7 @@ import { ProjectEdit } from "../components/ProjectEdit";
 import { api } from "../lib/api";
 
 import empty from '../assets/img/empty.png';
+import { CircleNotch } from "phosphor-react";
 
 type project = {
     id: string
@@ -40,6 +41,10 @@ export function HomePage() {
     const [listOffproject, setLisOffProject] = useState<project[]>()
     const [listAlltask, setListAllTask] = useState<task[] | null>(null)
     const [optionSelectedInTaskList, SetOptionSelectedInTaskList] = useState<string >('all')
+    const [loadingButtonOpen, setLoadingButtonOpen] = useState(false)
+    const [loadingButtonClosed, setLoadingButtonClosed] = useState(false)
+    const [loadingButtonAll, setLoadingButtonAll] = useState(false)
+    const [loadingListTask, setLoadingListTask] = useState(false)
 
     const idUserAuth = localStorage.getItem('idUser')
     const {updateList} = useContext(AuthContext)
@@ -50,9 +55,13 @@ export function HomePage() {
         });
 
         if (projectIDToBeListed != null) {
-            api.post('/task-all',  { id: projectIDToBeListed } ).then(response => {
-                setListAllTask(response.data)
-            });
+            setLoadingListTask(true)
+            setTimeout(() => {
+                api.post('/task-all',  { id: projectIDToBeListed } ).then(response => {
+                    setListAllTask(response.data)
+                });
+                setLoadingListTask(false)
+            }, 1000)
         }
     },[projectIDToBeListed, updateList]
     );
@@ -79,40 +88,51 @@ export function HomePage() {
     );
 
     async function returnOpenProject() {
-        try {
-            await api.post('/project-on', {id: idUserAuth}).then(response => {
-                setListOpenProject(response.data)
-            });
-            setListRegisteredProject('open')
-
-        }
-        catch (error) {
-            alert(error)
-        }
+        setLoadingButtonOpen(true)
+        setTimeout(() => {
+            try {
+                api.post('/project-on', {id: idUserAuth}).then(response => {
+                    setListOpenProject(response.data)
+                });
+                setListRegisteredProject('open')
+                setLoadingButtonOpen(false)
+            }
+            catch (error) {
+                alert(error)
+            }
+        }, 500)
     }
 
     async function returnClosedProject() {
-        try {
-            await api.post('/project-off', {id: idUserAuth}).then(response => {
-                setLisOffProject(response.data)
-            }); 
-            setListRegisteredProject('closed')
-        } 
-        catch (error) {
-            alert(error)  
-        }
+        setLoadingButtonClosed(true)
+        setTimeout(() => {
+            try {
+                api.post('/project-off', {id: idUserAuth}).then(response => {
+                    setLisOffProject(response.data)
+                }); 
+                setListRegisteredProject('closed')
+                setLoadingButtonClosed(false)
+            } 
+            catch (error) {
+                alert(error)  
+            }
+        }, 500)
     }
 
     async function returnAllProject() {
-        try {
-            await api.post('/project-all', {id: idUserAuth}).then(response => {
-                setListAllProject(response.data)
-            });
-            setListRegisteredProject('all')
-        } 
-        catch (error) {
-            alert(error)
-        }
+        setLoadingButtonAll(true)
+        setTimeout(() => {
+            try {
+                api.post('/project-all', {id: idUserAuth}).then(response => {
+                    setListAllProject(response.data)
+                });
+                setListRegisteredProject('all')
+                setLoadingButtonAll(false)
+            } 
+            catch (error) {
+                alert(error)
+            }
+        }, 500)
     }
 
     return(
@@ -134,27 +154,51 @@ export function HomePage() {
                     <div className="flex flex-col text-xs items-center justify-around py-2 gap-1 mb-8 sm:flex-row">
                         <button 
                             type="button"
-                            className={`h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "open" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
+                            className={`flex flex-row justify-center items-center h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "open" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
                             title="Apenas projetos ainda em abertos"
                             onClick={returnOpenProject}
                         >
-                            Abertos
+                            <div className={`${loadingButtonOpen == false ? ('hidden') : ('animate-spin mr-1')}`}>
+                                <CircleNotch 
+                                    size={20} 
+                                    weight={"bold"}
+                                />
+                            </div>
+                            <div >
+                                { loadingButtonOpen == false ? 'Abertos' : 'Carregando'}
+                            </div>
                         </button>
                         <button
                             type="button"
-                            className={`h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "closed" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
+                            className={`flex flex-row justify-center items-center h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "closed" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
                             title="Apenas os projetos já terminados"
                             onClick={returnClosedProject}
                         >   
-                            Concluídos
+                            <div className={`${loadingButtonClosed == false ? ('hidden') : ('animate-spin mr-1')}`}>
+                                <CircleNotch 
+                                    size={20} 
+                                    weight={"bold"}
+                                />
+                            </div>
+                            <div >
+                                { loadingButtonClosed == false ? 'Concluídos' : 'Carregando'}
+                            </div>
                         </button>
                         <button
                             type="button"
-                            className={`h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "all" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
+                            className={`flex flex-row justify-center items-center h-5 w-[90%] bg-white border-[1px] border-indigo-400 text-indigo-400 rounded-md hover:bg-indigo-300 hover:text-white hover:shadow-lg sm:h-8 sm:w-[33%]  ${listRegisteredProject == "all" ? 'bg-indigo-300 sm:bg-indigo-300 text-white sm:text-white' : 'bg-white'}`}
                             title="todos os projetos cadastrados"
                             onClick={returnAllProject}
                         >
-                            Todos
+                            <div className={`${loadingButtonAll == false ? ('hidden') : ('animate-spin mr-1')}`}>
+                                <CircleNotch 
+                                    size={20} 
+                                    weight={"bold"}
+                                />
+                            </div>
+                            <div >
+                                { loadingButtonAll == false ? 'Todos' : 'Carregando'}
+                            </div>
                         </button>
                     </div>
                     
@@ -254,67 +298,85 @@ export function HomePage() {
                 {/* content div rendering condition -> */}                
                 <div className="p-5 ml-5 bg-white w-[60%] rounded-md">
                     {/* open the list */}
-                    {isRenderingComponentTaskList == 1 && (
+                    {isRenderingComponentTaskList == 1 && (                       
                         <>
-                            <div className="flex flex-col p-2 sm:p-5 justify-center items-center">
-                                <div className="flex flex-row w-[100%] items-center justify-between py-6 border-b-2 mb-4">
-                                    <div className="flex flex-col items-start justify-center">
-                                        <p className="flex text-[11px] text-gray-500 sm:text-sm">Projeto: </p>
-                                        <h1 className="text-gray-600 font-semibold text-xs sm:text-2xl">{projectNameToBeListed}</h1>
-                                    </div>
-                                    <div className="flex flex-col items-end justify-center">
-                                        <p className="text-gray-700 text-[8px] mb-1 sm:text-[11px]">Listar de forma</p>
-                                        <select 
-                                            name="status" 
-                                            className="h-5 w-5 border-[1px] border-indigo-400 rounded-sm text-xs text-indigo-400 sm:w-16 sm:h-7 sm:text-xs"
-                                            value={optionSelectedInTaskList}
-                                            onChange={(e) => SetOptionSelectedInTaskList(e.target.value)}
-                                        >
-                                            <option className="text-xs" value="open">abertos</option>
-                                            <option className="text-xs" value="closed">concluídos</option>
-                                            <option className="text-xs" value="all">todos</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="w-28 flex flex-col items-center justify-center sm:w-[40%]">
-                                    <button
-                                        onClick={() => setIsRenderingComponentTaskList(4)}
-                                        className="bg-indigo-300 w-[90%] text-white text-xs py-1 px-1 rounded-md shadow-md sm:w-[80%] sm:h-11 sm:text-sm sm:font-semibold hover:bg-indigo-400">
-                                        Adicionar nova tarefa
-                                    </button>
-                                </div>            
-                            </div>
-
-                            <div className="flex flex-col w-full">
-                                {listAlltask?.length == 0 && (
-                                    <div className="flex flex-col w-full h-[200px] items-center justify-center">
-                                        <div className="flex p-2 mt-60">
-                                            <img  className="w-[250px] sm:w-[300px]" src={empty} alt="" />
+                            {/* loading for open the list */}
+                            {loadingListTask == false ? (
+                                <>
+                                    <div className="flex flex-col p-2 sm:p-5 justify-center items-center">
+                                        <div className="flex flex-row w-[100%] items-center justify-between py-6 border-b-2 mb-4">
+                                            <div className="flex flex-col items-start justify-center">
+                                                <p className="flex text-[11px] text-gray-500 sm:text-sm">Projeto: </p>
+                                                <h1 className="text-gray-600 font-semibold text-xs sm:text-2xl">{projectNameToBeListed}</h1>
+                                            </div>
+                                            <div className="flex flex-col items-end justify-center">
+                                                <p className="text-gray-700 text-[8px] mb-1 sm:text-[11px]">Listar de forma</p>
+                                                <select 
+                                                    name="status" 
+                                                    className="h-5 w-5 border-[1px] border-indigo-400 rounded-sm text-xs text-indigo-400 sm:w-16 sm:h-7 sm:text-xs"
+                                                    value={optionSelectedInTaskList}
+                                                    onChange={(e) => SetOptionSelectedInTaskList(e.target.value)}
+                                                >
+                                                    <option className="text-xs" value="open">abertos</option>
+                                                    <option className="text-xs" value="closed">concluídos</option>
+                                                    <option className="text-xs" value="all">todos</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <p className="font-medium text-indigo-400 text-sm sm:text-lg">Não encontramos nenhuma tarefa para este projeto!</p>
+                                        <div className="w-28 flex flex-col items-center justify-center sm:w-[40%]">
+                                            <button
+                                                onClick={() => setIsRenderingComponentTaskList(4)}
+                                                className="bg-indigo-300 w-[90%] text-white text-xs py-1 px-1 rounded-md shadow-md sm:w-[80%] sm:h-11 sm:text-sm sm:font-semibold hover:bg-indigo-400">
+                                                Adicionar nova tarefa
+                                            </button>
+                                        </div>            
                                     </div>
-                                )}                  
-                                {listAlltask?.length != 0 && (
-                                    <ul>
-                                        {listAlltask?.map(tasks => {
-                                            return (
-                                                <li 
-                                                    key={tasks.id}
-                                                    className="mb-2"
-                                                >                                           
-                                                <CardTask  
-                                                    id={tasks.id}
-                                                    status={tasks.status}
-                                                    title={tasks.name}
-                                                    description={tasks.description} 
-                                                    renderComponent={setIsRenderingComponentTaskList}                                        
-                                                />
-                                                </li>
-                                            )
-                                        })}
-                                    </ul> 
-                                )}
-                            </div>
+
+                                    <div className="flex flex-col w-full">
+                                        {listAlltask?.length == 0 && (
+                                            <div className="flex flex-col w-full h-[200px] items-center justify-center">
+                                                <div className="flex p-2 mt-60"> 
+                                                    <img  className="w-[200px] sm:w-[200px]" src={empty} alt="" />
+                                                </div>
+                                                <p className="font-medium text-indigo-400 text-sm sm:text-sm">Não encontramos nenhuma tarefa para este projeto!</p>
+                                            </div>
+                                        )}                  
+                                        {listAlltask?.length != 0 && (
+                                            <ul>
+                                                {listAlltask?.map(tasks => {
+                                                    return (
+                                                        <li 
+                                                            key={tasks.id}
+                                                            className="mb-2"
+                                                        >                                           
+                                                            <CardTask  
+                                                                id={tasks.id}
+                                                                status={tasks.status}
+                                                                title={tasks.name}
+                                                                description={tasks.description} 
+                                                                renderComponent={setIsRenderingComponentTaskList}                                        
+                                                            />
+                                                        </li>
+                                                    )
+                                                })}
+                                            </ul> 
+                                        )}
+                                    </div>
+                                </>
+                            ) 
+                            : 
+                            (
+                                <div className="flex flex-col w-full h-[300px] items-center justify-center">
+                                    <div className="w-10 animate-spin text-indigo-400">
+                                        <CircleNotch 
+                                            size={40} 
+                                            weight={"bold"}
+                                        />
+                                    </div>
+                                    <p className="text-indigo-400">Carregando ...</p>                       
+                                </div>
+                            )
+                            }                            
                         </>
                     )}
 

@@ -5,6 +5,7 @@ export const theme = {
         background: '#FFFFFF',
         first_color: '#818CF8',
         second_color: '#FD6584',
+        third_color: '#606060'
     },
     fonts: {
         light: 'Roboto_300Light',

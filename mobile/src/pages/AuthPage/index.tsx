@@ -1,7 +1,8 @@
+import { Link, useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { View, Text, TextInput, Image } from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 
-import image from '../../assets/home.png';
+import image from "../../assets/home.png";
 import { Button } from "../../components/Button";
 
 
@@ -9,10 +10,12 @@ import { styles } from './styles'
 
 export function AuthPage() {
 
+    const navigator = useNavigation()
+
     const [renderCondition, setRenderCondition] = useState(false)
 
     function onPressButtonSend() {
-        alert('Apertou');
+        navigator.navigate('home' as never)
     }
 
     return (
@@ -43,9 +46,13 @@ export function AuthPage() {
                     functionCall={onPressButtonSend}
                 />
             </View>
-            <Text style={styles.link}>
-            { renderCondition == true ? 'Já tem uma conta? Clique aqui' : 'Ainda não tem uma conta? Clique aqui'}
-            </Text>                         
+            <TouchableOpacity
+                onPress={() => setRenderCondition(!renderCondition)}
+                >
+                <Text style={styles.link}>
+                { renderCondition == true ? 'Já tem uma conta? Clique aqui' : 'Ainda não tem uma conta? Clique aqui'}
+                </Text>  
+            </TouchableOpacity>                       
         </View>
     )
 }

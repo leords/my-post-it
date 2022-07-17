@@ -2,14 +2,16 @@ import { theme } from './../../theme/index';
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+
     container:{
         width: '100%',
-        height: 80,
+        height: 110,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingHorizontal: 30,
+        
 
         backgroundColor: theme.colors.first_color,
         zIndex: 1,
@@ -24,6 +26,15 @@ export const styles = StyleSheet.create({
         
         elevation: 12,
     },
+    viewUser: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20
+        
+    },
+
     name: {
         fontFamily: theme.fonts.black,
         fontSize: 14,

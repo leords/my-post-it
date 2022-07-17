@@ -19,8 +19,8 @@ export function Header({name} : Props) {
     return (
         <>
             <View style={styles.container}>
-                <Text style={styles.name}>{name}</Text>
-                <View>
+                <View style={styles.viewUser}>
+                    <Text style={styles.name}>{name}</Text>
                     <TouchableOpacity onPress={() => setOptionRender(!optionRender)}>
                         <UserCircle 
                             size={40} 

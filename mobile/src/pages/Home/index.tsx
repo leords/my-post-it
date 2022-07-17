@@ -1,5 +1,6 @@
+import { PlusCircle } from "phosphor-react-native";
 import React from "react";
-import { View, Text} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity} from "react-native";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 
@@ -18,12 +19,35 @@ export function Home() {
                 <Text style={styles.title}>Lista de</Text>
                 <Text style={styles.titleList}>Projetos</Text>
             </View>
-            <Card 
-                name={"Fazer deploy na Vercel"} 
-                description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
-                status={false}
-                handleOpenAction={() => alert('Deu!')}          
-            />
+            <ScrollView>
+                <TouchableOpacity style={{marginBottom: 10}}>
+                    <Card 
+                        name={"Fazer deploy na Vercel"} 
+                        description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
+                        status={false}
+                        handleOpenAction={() => alert('Deu!')}          
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={{marginBottom: 10}}>
+                    <Card 
+                        name={"Fazer deploy na Vercel"} 
+                        description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
+                        status={false}
+                        handleOpenAction={() => alert('Deu!')}          
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={{marginBottom: 10}}>
+                    <Card 
+                        name={"Fazer deploy na Vercel"} 
+                        description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
+                        status={false}
+                        handleOpenAction={() => alert('Deu!')}          
+                    />
+                </TouchableOpacity>
+            </ScrollView>
+            <View>
+                <PlusCircle size={60} />
+            </View>
             
         </View>
     )

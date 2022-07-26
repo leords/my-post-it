@@ -24,5 +24,12 @@ export const styles = StyleSheet.create ({
         fontFamily: theme.fonts.medium,
         fontSize: 24,
         color: theme.colors.third_color
+    },
+    button: {
+        width: '80%',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 40
     }
 })

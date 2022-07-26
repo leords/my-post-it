@@ -2,9 +2,8 @@ import { Link, useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 
-import image from "../../assets/home.png";
 import { Button } from "../../components/Button";
-
+import { theme } from "../../theme";
 
 import { styles } from './styles'
 
@@ -25,7 +24,7 @@ export function AuthPage() {
             <Text style={styles.ThirdText}>Uma forma simples de criar seus projetos, tarefa à tarefa.</Text>
             <Image 
                 style={styles.image}
-                source={image}>
+                source={require("../../assets/home.png")}>
             </Image>
 
             <TextInput 
@@ -39,11 +38,12 @@ export function AuthPage() {
             <TextInput 
                 style={styles.input}
                 placeholder="Password" 
-            />
+            /> 
             <View style={styles.button}>
                 <Button  
                     title={ renderCondition == true ? 'Cadastrar' : 'Entrar'}
                     functionCall={onPressButtonSend}
+                    color={theme.colors.second_color}
                 />
             </View>
             <TouchableOpacity

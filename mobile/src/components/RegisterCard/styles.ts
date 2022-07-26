@@ -8,5 +8,9 @@ export const styles = StyleSheet.create({
 
 
         backgroundColor: theme.colors.first_color
+    },
+    img: {
+        width: 130,
+        height: 100
     }
 })

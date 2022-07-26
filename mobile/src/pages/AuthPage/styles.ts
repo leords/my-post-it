@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
         fontSize: 12
     },
     button: {
+        width: 260,
         marginTop: 25,
         marginBottom: 25,
     },

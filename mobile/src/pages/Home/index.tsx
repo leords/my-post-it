@@ -1,12 +1,33 @@
+import { useNavigation } from "@react-navigation/native";
 import { PlusCircle } from "phosphor-react-native";
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, FlatList} from "react-native";
+import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
+import { theme } from "../../theme";
 
 import { styles } from "./styles";
 
 export function Home() {
+
+    const navigation = useNavigation();
+
+    const registerFaker = [
+    {
+        name: 'Deploy 1',
+        description: 'Estamos testando',
+        status: false,
+        handleOpenAction: ''
+    },
+    {
+        name: 'Deploy 2',
+        description: 'Verificando a cor',
+        status: true,
+        handleOpenAction: ''
+    }
+    ];
+
     return (
         <View style={styles.container}>
             <View style={{zIndex: 1}}>
@@ -19,34 +40,35 @@ export function Home() {
                 <Text style={styles.title}>Lista de</Text>
                 <Text style={styles.titleList}>Projetos</Text>
             </View>
-            <ScrollView>
-                <TouchableOpacity style={{marginBottom: 10}}>
-                    <Card 
-                        name={"Fazer deploy na Vercel"} 
-                        description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
-                        status={false}
-                        handleOpenAction={() => alert('Deu!')}          
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity style={{marginBottom: 10}}>
-                    <Card 
-                        name={"Fazer deploy na Vercel"} 
-                        description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
-                        status={false}
-                        handleOpenAction={() => alert('Deu!')}          
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity style={{marginBottom: 10}}>
-                    <Card 
-                        name={"Fazer deploy na Vercel"} 
-                        description={"Corrigir os erros do código e fazer o deploy e enviar o link por email."} 
-                        status={false}
-                        handleOpenAction={() => alert('Deu!')}          
-                    />
-                </TouchableOpacity>
-            </ScrollView>
-            <View>
-                <PlusCircle size={60} />
+
+            <FlatList
+                data={registerFaker}
+                keyExtractor={item => item.name}
+                renderItem={ ({item}) =>
+                    <TouchableOpacity style={{marginBottom: 10}}>
+                        <Card 
+                            name={item.name} 
+                            description={item.description} 
+                            status={item.status}
+                            handleOpenAction={() => alert('Deu!')}          
+                        />
+                    </TouchableOpacity>     
+
+                }
+                contentContainerStyle={{paddingBottom: 100}}
+                ListEmptyComponent={() => (
+                    <View>
+                        <Text>Lista vazia! </Text>
+                    </View>
+                )}
+            />
+
+            <View style={styles.button}>
+                <Button 
+                    title="Criar novo projeto"
+                    functionCall={() => alert('Novo item')}
+                    color={theme.colors.first_color}     
+                />
             </View>
             
         </View>

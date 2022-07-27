@@ -9,12 +9,10 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        paddingHorizontal: 30,
+        justifyContent: 'center',
+        padding: 20,
         
-
         backgroundColor: theme.colors.first_color,
-        zIndex: 1,
 
         shadowColor: "#000",
         shadowOffset: {
@@ -26,53 +24,29 @@ export const styles = StyleSheet.create({
         
         elevation: 12,
     },
+    viewArrow: {
+        width: '50%',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        marginTop: 50
+    },
     viewUser: {
-        display: 'flex',
+        width: '50%',
+        alignItems: 'flex-end',
+        justifyContent: 'center',  
+        marginTop: 40
+    },
+    user: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20
-        
+        justifyContent: 'center'
     },
 
     name: {
         fontFamily: theme.fonts.black,
         fontSize: 14,
-        marginRight: 10,
+        marginRight: 15,
+        marginLeft: 5,
         color: theme.colors.background,
-    },
-
-    viewMenu: {
-        zIndex: 0
-    },
-    menu: {
-        position: 'absolute',
-        top: -10,
-        right: 10,
-        width: 70,
-        height: 50,
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        paddingBottom: 10,
-        borderRadius: 4,
-
-        backgroundColor: theme.colors.first_color,
-        
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        shadowOpacity: 0.37,
-        shadowRadius: 7.49,
-        
-        elevation: 12,
-    },
-    text: {
-        marginLeft: 4,
-        fontFamily: theme.fonts.medium,
-        color: theme.colors.background
     }
 })

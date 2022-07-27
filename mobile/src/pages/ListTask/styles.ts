@@ -17,12 +17,12 @@ export const styles = StyleSheet.create ({
     },
     title: {
         fontFamily: theme.fonts.medium,
-        fontSize: 16,
+        fontSize: 14,
         color: theme.colors.third_color
     },
     titleList: {
         fontFamily: theme.fonts.medium,
-        fontSize: 24,
+        fontSize: 18,
         color: theme.colors.third_color
     },
     button: {

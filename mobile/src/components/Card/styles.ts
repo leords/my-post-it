@@ -4,8 +4,9 @@ import { theme } from "../../theme";
 export const styles = StyleSheet.create({
     containerStatusTrue: {
         width: 315,
-        height: 180,
+        minHeight: 180,
         borderRadius: 10,
+        paddingHorizontal: 30,
         backgroundColor: theme.colors.first_color,
 
         shadowColor: "#000",
@@ -20,8 +21,9 @@ export const styles = StyleSheet.create({
     },
     containerStatusFalse: {
         width: 315,
-        height: 180,
+        minHeight: 180,
         borderRadius: 10,
+        paddingHorizontal: 30,
         backgroundColor: theme.colors.second_color,
 
         shadowColor: "#000",
@@ -34,36 +36,38 @@ export const styles = StyleSheet.create({
         
         elevation: 5,
     },
+    viewName: {
+        width: '100%',
+        height: 40,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+        borderBottomWidth: 1,
+        borderColor: theme.colors.background,
+    },
     name: {
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        height: 42,
         fontFamily: theme.fonts.medium,
         color: theme.colors.background,
-
-        borderBottomWidth: 1,
-        borderBottomColor: theme.colors.background,
     },
     title: {
         marginTop: 20,
-        paddingHorizontal: 30,
         fontFamily: theme.fonts.medium,
         color: theme.colors.background
     },
     description: {
         marginTop: 4,
-        paddingHorizontal: 30,
         marginLeft: 8,
         fontFamily: theme.fonts.light,
         color: theme.colors.background
     },
     status: {
-        marginTop: 15,
-        display: 'flex',
+        position: 'absolute',
+        bottom: 10,
+        right: 20,
         alignItems: 'flex-end',
         justifyContent: 'center',
         width: '100%',
         height: 40,
-        paddingRight: 10
     }
 })

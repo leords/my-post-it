@@ -7,33 +7,37 @@ import { Button } from "../Button";
 
 import { styles } from './styles'
 
-export function RegisterCard() {
+type Props = {
+    getName: (type: string) => void
+    getDescription: (type: string) => void
+}
+
+export function RegisterCard( {getName, getDescription} : Props) {
     return (
         <View style={styles.container}>
-            <View>
-                <X size={32} />
+            <View style={styles.close}>
+                <X  
+                    size={32}
+                    color={theme.colors.first_color}
+                />
             </View>
-            <View>
+            <View style={styles.img}>
                 <Image 
                     source={require('../../assets/add.png')} 
                     style={styles.img}
                 />
             </View>
-            <View>
-                <Text>Nome</Text>
-                <TextInput>
-
-                </TextInput>
-                <Text>Descrição</Text>
+            <View style={styles.viewInput}>
+                <Text style={styles.text}>Nome</Text>
+                <TextInput 
+                    style={styles.inputName}
+                    onChangeText={getName}
+                />
+                <Text style={styles.text}>Descrição</Text>
                 <TextInput
+                    style={styles.inputDescription}
+                    onChangeText={getDescription}
                     multiline={true}
-                >
-
-                </TextInput>
-                <Button 
-                    title="Cadastrar"
-                    functionCall={ () => ''}
-                    color={theme.colors.first_color}
                 />
             </View>
         </View>

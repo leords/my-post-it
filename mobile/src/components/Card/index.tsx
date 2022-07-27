@@ -17,7 +17,9 @@ export function Card({name, description, status} : Props) {
 
     return (
         <View style={status == false ? styles.containerStatusFalse : styles.containerStatusTrue}>
-            <Text style={styles.name}>{name}</Text>
+            <View style={styles.viewName}>
+                <Text style={styles.name}>{name}</Text>
+            </View>
             <Text style={styles.title}>Descrição</Text>
             <Text style={styles.description}>{description}</Text>
             <View style={styles.status}>

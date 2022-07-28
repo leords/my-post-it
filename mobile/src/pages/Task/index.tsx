@@ -11,12 +11,14 @@ import { styles } from "./styles"
 
 type RouteParams = {
     id: string
+    nameTask: string,
+    nameProject: string
 }
 
-export function Project() {
+export function Task() {
 
     const route = useRoute()
-    const { id } = route.params as RouteParams
+    const { id, nameProject, nameTask } = route.params as RouteParams
 
     return (
         <View style={styles.container}>
@@ -27,27 +29,16 @@ export function Project() {
             <View style={styles.containerCard}>
                 <Text style={styles.titleProject}>{id}</Text>
 
-                <View style={styles.viewDescription}>
+                <View>
                     <Text style={styles.titleDescription}>Descrição:</Text>
                     <View style={styles.inputDescription}>
                         <Text style={styles.description}>Fazer correções de portugues e alinhar os componentes.</Text>
                     </View>
                 </View>
-
-                <Text style={styles.titleTasks}>Tarefas</Text>               
-                <View style={styles.viewFilter}>
-                    <View style={styles.viewOpen}>
-                        <Text style={styles.subTitle}>Abertas</Text>
-                        <Text style={styles.count}>10</Text>
-                    </View>
-                    <View style={styles.viewClosed}>
-                        <Text style={styles.subTitle}>Concluídas</Text>
-                        <Text style={styles.count}>2</Text>
-                    </View>
-                    <View style={styles.viewAll}>
-                        <Text style={styles.subTitle}>Todas</Text>
-                        <Text style={styles.count}>12</Text>
-                    </View>
+              
+                <View style={styles.viewTitle}>
+                    <Text style={styles.project}>Projeto</Text> 
+                    <Text style={styles.subTitle}>{nameProject}</Text>
                 </View>
 
                 <View style={styles.button}>
@@ -63,7 +54,7 @@ export function Project() {
                         size={28} 
                         color={theme.colors.background}
                     />
-                    <Text style={styles.titleTrash}>Excluir este projeto!</Text>
+                    <Text style={styles.titleTrash}>Excluir esta tarefa!</Text>
                 </View>
 
             </View>

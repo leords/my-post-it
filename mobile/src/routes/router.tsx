@@ -4,7 +4,9 @@ import React from "react";
 import { AuthPage } from "../pages/AuthPage";
 import { Home } from "../pages/Home";
 import { ListTask } from "../pages/ListTask";
+import { Project } from "../pages/Project";
 import { Register } from "../pages/Register";
+import { Task } from "../pages/Task";
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +33,16 @@ export function Routes() {
                 <Stack.Screen 
                     name="list"
                     component={ListTask}
+                    options={{headerShown: false}}
+                /> 
+                <Stack.Screen 
+                    name="project"
+                    component={Project}
+                    options={{headerShown: false}}
+                /> 
+                <Stack.Screen 
+                    name="task"
+                    component={Task}
                     options={{headerShown: false}}
                 /> 
             </Stack.Navigator>

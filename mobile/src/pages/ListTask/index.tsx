@@ -37,8 +37,13 @@ export function ListTask() {
     const route = useRoute()
     const { id } = route.params as RouteParams
         
-    function handleOpenTask() {
-        alert('abrir tarefa!')
+    function handleOpenTask(id: string, nameTask: string, nameProject: string) {
+        navigation.navigate('task', {id, nameTask, nameProject})
+    }
+
+    function handleOpenDescriptionProject(id: string) {
+        alert('abrir informações do projeto');
+        navigation.navigate('project', {id})
     }
             
     return (
@@ -50,9 +55,16 @@ export function ListTask() {
                 />
             </View>
 
-            <View style={styles.viewTitle}>
-                <Text style={styles.title}>Lista de tareras</Text>
-                <Text style={styles.titleList}>Projeto: {id}</Text>
+            <View style={styles.viewInformation}>
+                <View>
+                    <Text style={styles.title}>Lista de tareras</Text>
+                    <Text style={styles.titleList}>Projeto: {id}</Text>
+                </View>
+                <TouchableOpacity
+                    onPress={() => handleOpenDescriptionProject(id)}
+                >
+                    <Text style={styles.linkProject} >Ver projeto</Text>  
+                </TouchableOpacity>
             </View>
 
             <FlatList
@@ -61,7 +73,7 @@ export function ListTask() {
                 renderItem={ ({item}) =>
                     <TouchableOpacity 
                         style={{marginBottom: 10}}
-                        onPress={handleOpenTask}    
+                        onPress={() => handleOpenTask(item.name, '', id)}    
                     >
                         <Card 
                             name={item.name} 

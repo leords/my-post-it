@@ -50,7 +50,6 @@ export function Home() {
                 <Text style={styles.title}>Lista de</Text>
                 <Text style={styles.titleList}>Projetos</Text>
             </View>
-
             <FlatList
                 data={registerFaker}
                 keyExtractor={item => item.name}

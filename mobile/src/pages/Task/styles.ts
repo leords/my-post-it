@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     },
     containerCard: {
         width: 315,
-        height: 500,
+        height: 450,
         alignItems: 'center',
         backgroundColor: theme.colors.first_color,
         borderRadius: 10,
@@ -22,9 +22,6 @@ export const styles = StyleSheet.create({
         marginVertical: 35,
         borderBottomWidth: 1,
         borderColor: theme.colors.background
-    },
-    viewDescription: {
-
     },
     titleDescription: {
         fontFamily: theme.fonts.medium,
@@ -45,40 +42,29 @@ export const styles = StyleSheet.create({
         fontSize: 13,
         color: theme.colors.first_color
     },
-    titleTasks: {
-        fontFamily: theme.fonts.medium,
-        fontSize: 16,
-        color: theme.colors.background,
-        marginTop: 20,
-    },
-    viewFilter: {
+    viewTitle: {
         width: 250,
         height: 70,
-        flexDirection: "row",
+        flexDirection: "column",
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 50
     },
-    viewOpen:{
-        alignItems: 'center',
-        marginTop: 30
-    },
-    viewClosed:{
-        alignItems: 'center'   
-    },
-    viewAll:{
-        alignItems: 'center',
-        marginTop: 30
+    project: {
+        fontFamily: theme.fonts.medium,
+        color: theme.colors.background,
+        marginTop: 25
     },
     subTitle: {
         fontFamily: theme.fonts.light,
         color: theme.colors.background
     },
-    count: {
-        fontFamily: theme.fonts.medium,
-        fontSize: 16,
-        color: theme.colors.background
+    button: {
+        width: '80%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
+    
     viewTrash: {
         position: 'absolute',
         bottom: 10,
@@ -87,12 +73,6 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    button: {
-        width: '80%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 30
     },
     titleTrash: {
         fontFamily: theme.fonts.medium,

@@ -5,6 +5,8 @@ export declare global { //declaração global
             home: undefined
             register: {id: string}
             list: {id: string}
+            project: {id: string}
+            task: {id: string, nameTask: string, nameProject: string}
         }
     }
 }

@@ -10,10 +10,17 @@ export const styles = StyleSheet.create ({
         alignItems: 'center',
         backgroundColor: theme.colors.background
     },
-    viewTitle: {
+    viewInformation: {
         width: '100%',
-        paddingVertical: 22,
-        paddingHorizontal: 45
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        paddingVertical: 30,
+        paddingHorizontal: 20
+    },
+    linkProject: {
+        fontFamily: theme.fonts.medium,
+        color: theme.colors.first_color
     },
     title: {
         fontFamily: theme.fonts.medium,

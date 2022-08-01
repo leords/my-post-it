@@ -10,12 +10,13 @@ import { Header } from '../../components/Header';
 
 type RouteParams = {
     id: string
+    title: string
 }
 
 export function Register() {
 
     const route = useRoute();
-    const { id } = route.params as RouteParams;
+    const { id, title } = route.params as RouteParams;
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
 
@@ -39,14 +40,14 @@ export function Register() {
             />
 
             <View style={styles.viewTitle}>
-                <Text style={styles.title}>Criar novo</Text>
-                <Text style={styles.titleList}>Projetos</Text>
+                <Text style={styles.title}>Criar novo item de</Text>
+                <Text style={styles.titleList}>{title}</Text>
             </View>
 
             <RegisterCard 
                 getName={setName}
                 getDescription={setDescription}
-            />
+            /> 
 
             <View style={styles.button}>
                 <Button 

@@ -1,5 +1,5 @@
 
-import { Routes } from './src/routes/router';
+import { Routes } from './src/routes';
 import AppLoading from 'expo-app-loading';
 import { useFonts, 
   Roboto_500Medium, 
@@ -26,7 +26,7 @@ export default function App() {
   }
 
   return (
-    <Routes/>
+    <Routes />
   );
 }
 

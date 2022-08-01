@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Card } from "../../components/Card";
@@ -9,10 +9,21 @@ import { Header } from "../../components/Header";
 import { theme } from "../../theme";
 
 import { styles } from "./styles";
+import { api } from "../../services/api";
 
 
 type RouteParams = {
     id: string
+}
+
+type task = {
+    id: string
+    name: string
+    description: string
+    status: boolean
+    date: Date
+    project: string
+    userLogged: string
 }
 
 export function ListTask() {
@@ -33,9 +44,12 @@ export function ListTask() {
         }
         ];
 
+   // const [taskReturnList, setTaskReturnList] = useState<task[]>()
     const navigation = useNavigation()
     const route = useRoute()
     const { id } = route.params as RouteParams
+
+
         
     function handleOpenTask(id: string, nameTask: string, nameProject: string) {
         navigation.navigate('task', {id, nameTask, nameProject})
@@ -45,7 +59,18 @@ export function ListTask() {
         alert('abrir informações do projeto');
         navigation.navigate('project', {id})
     }
-            
+
+    function handleNewRegisterTask(id: string, title: string) {
+        alert('criar uma nova tarefa');
+        navigation.navigate('register', {id, title})
+    }
+    
+/*     useEffect(() => {
+        api.post('/project-all', { id: id } ).then(response => {
+            setTaskReturnList(response.data)
+        });
+    }) */
+
     return (
         <View style={styles.container}>
             <View style={{zIndex: 1}}>
@@ -57,7 +82,7 @@ export function ListTask() {
 
             <View style={styles.viewInformation}>
                 <View>
-                    <Text style={styles.title}>Lista de tareras</Text>
+                    <Text style={styles.title}>Lista de tarefas</Text>
                     <Text style={styles.titleList}>Projeto: {id}</Text>
                 </View>
                 <TouchableOpacity
@@ -92,7 +117,7 @@ export function ListTask() {
             <View style={styles.button}>
                 <Button 
                     title="Criar nova tarefa"
-                    functionCall={() => ''}
+                    functionCall={() => handleNewRegisterTask(id, 'Tarefa')}
                     color={theme.colors.first_color}     
                 />
             </View>

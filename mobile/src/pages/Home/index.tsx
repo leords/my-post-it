@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, FlatList} from "react-native";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -9,9 +9,20 @@ import { theme } from "../../theme";
 
 import { styles } from "./styles";
 
+type project = {
+    id: string
+    name: string
+    description: string
+    status: boolean
+    date: Date
+    author: string
+}
+
 export function Home() {
 
     const navigation = useNavigation();
+
+    const [projectListReturn, setProjectListReturn] = useState<project[]>()
 
     //const registerFaker = null
     const registerFaker = [
@@ -30,8 +41,8 @@ export function Home() {
     ];
 
 
-    function handleRegisterScreen(id : string) {
-        navigation.navigate('register', {id})
+    function handleRegisterScreen(id : string, title: string) {
+        navigation.navigate('register', {id, title})
     }
     function handleOpenProject(id : string) {
         navigation.navigate('list', {id})
@@ -75,7 +86,7 @@ export function Home() {
             <View style={styles.button}>
                 <Button 
                     title="Criar novo projeto"
-                    functionCall={() => handleRegisterScreen('paramsID')}
+                    functionCall={() => handleRegisterScreen('paramsID', 'Projeto')}
                     color={theme.colors.first_color}     
                 />
             </View>

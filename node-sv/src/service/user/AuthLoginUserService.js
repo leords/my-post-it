@@ -19,8 +19,7 @@ class AuthLoginUserService {
                     name: authUser.name,
                     email: authUser.email,
                 };
-                const token = '545kadjijopad541a564dad6a4dad';
-                return { user, token };
+                return { user};
             }
             return authUser;
         }

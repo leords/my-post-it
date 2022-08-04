@@ -35,13 +35,10 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
      useEffect (() => {
 
-        async function loadStoragedAuth() {
+        function loadStoragedAuth() {
             const storagedUser = localStorage.getItem('user')
-            const storagedToken = localStorage.getItem('token')
 
-            if (storagedUser && storagedToken) {
-                console.log(storagedUser)
-                api.defaults.headers.common['Authorization'] = `Bearer ${storagedToken}`
+            if (storagedUser) {
                 setUser(JSON.parse(storagedUser))
             }
         }
@@ -54,13 +51,12 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         await api.post('/auth', {
             email: email,
             password: password
-            }).then(response => { 
-                setUser(response.data)
-                localStorage.setItem('user', JSON.stringify(response.data))
-                localStorage.setItem('idUser', response.data.user.id)
-                localStorage.setItem('token', response.data.token)
-
-                api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+            })
+            .then(response => { 
+                setUser(response.data);                
+                console.log('return user: ' + user)
+                localStorage.setItem('user', JSON.stringify(response.data));
+                localStorage.setItem('idUser', response.data.user.id);
             });
  
     }

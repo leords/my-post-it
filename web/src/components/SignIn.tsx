@@ -23,16 +23,18 @@ export function SignIn({renderComponent}:Props) {
     async function handleLogin(e: FormEvent) {
         e.preventDefault();
         setloading(true)
-        signIn(email, password)
+        await signIn(email, password)
 
         
         setTimeout(() => {
-            user == null ? setConditionAlertRender(true) 
+            user == null 
+                ? setConditionAlertRender(true) 
                 : setConditionAlertRender(false)
 
             setloading(false)
 
-            user != null ? navigate('/home')
+            user != null 
+                ? navigate('/home')
                 : navigate('/')
         }, 2000)
     }

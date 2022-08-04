@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthLoginUserService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
+
+
 class AuthLoginUserService {
     async execute(email, password) {
         try {
@@ -19,10 +21,9 @@ class AuthLoginUserService {
                     name: authUser.name,
                     email: authUser.email,
                 };
-                const token = '545kadjijopad541a564dad6a4dad';
-                return { user, token };
+                return {user};
             }
-            return authUser;
+            return null;
         }
         catch (error) {
             alert('Auth not invalid!');

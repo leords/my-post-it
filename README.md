@@ -13,7 +13,7 @@
 ## 🚀 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
-
+- React Native
 - ReactJS
 - TypeScript
 - Vite

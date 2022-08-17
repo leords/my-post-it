@@ -4,14 +4,15 @@ import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 
 import { Button } from "../../components/Button";
 import { AuthContext } from "../../context/authContext";
+import { api } from "../../services/api";
 import { theme } from "../../theme";
 
 import { styles } from './styles'
 
 export function AuthPage() {
 
-    const navigator = useNavigation()
-    const { signIn, signOut } = useContext(AuthContext)
+    const navigation = useNavigation()
+    const { signIn} = useContext(AuthContext)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -20,13 +21,16 @@ export function AuthPage() {
 
 
     function handleSignIn() {
+        
         if (email == '' && password == '') {
             alert('Favor preencha os campos')
         }
-        if (email == '' || password == '') {
+        else if (email == '' || password == '') {
             alert('Favor preencha os campos')
         }
-        signIn(email, password);
+        else if (email != '' && password != '') {
+            signIn(email, password);
+        }
     }
 
     function handleSignUp() {
@@ -57,6 +61,7 @@ export function AuthPage() {
                 style={styles.input}
                 placeholder="Password" 
                 onChangeText={setPassword}
+                secureTextEntry={true}
             /> 
 
             <View style={styles.button}>

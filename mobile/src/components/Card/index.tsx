@@ -1,4 +1,3 @@
-
 import { Check, X } from "phosphor-react-native";
 import React from "react";
 import { View, Text } from "react-native";

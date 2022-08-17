@@ -1,6 +1,8 @@
-import { ULR_API } from '@env'
+import { ULR_API, ULR_API2 } from '@env'
 import axios from 'axios'
 
+
 export const api = axios.create({
-    baseURL: ULR_API
+    // uso do back-end local
+    baseURL: ULR_API2
 })

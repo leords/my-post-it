@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: theme.colors.first_color,
         borderRadius: 10,
-        marginTop: 85, 
+        marginTop: 25, 
         paddingHorizontal: 32
     },
     titleProject: {
@@ -38,8 +38,8 @@ export const styles = StyleSheet.create({
         borderRadius: 4
     },
     description: {
-        fontFamily: theme.fonts.light,
-        fontSize: 13,
+        fontFamily: theme.fonts.medium,
+        fontSize: 14,
         color: theme.colors.first_color
     },
     viewTitle: {
@@ -48,15 +48,15 @@ export const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 50
+        marginBottom: 30
     },
     project: {
-        fontFamily: theme.fonts.medium,
+        fontFamily: theme.fonts.light,
         color: theme.colors.background,
         marginTop: 25
     },
     subTitle: {
-        fontFamily: theme.fonts.light,
+        fontFamily: theme.fonts.medium,
         color: theme.colors.background
     },
     button: {

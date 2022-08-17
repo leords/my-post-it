@@ -3,7 +3,6 @@ import { View, Image, Text } from "react-native";
 
 import { styles } from './styles'
 
-
 export function Empty() {
     return (
         <View style={styles.container}>

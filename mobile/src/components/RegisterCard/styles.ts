@@ -6,18 +6,10 @@ import { theme } from "../../theme";
 export const styles = StyleSheet.create({
     container: {
         width: 315,
-        height: 500,
+        height: 400,
         alignItems: 'center',
         borderRadius: 10,
         backgroundColor: theme.colors.first_color
-    },
-    close: {
-        width: '100%',
-        alignItems: 'flex-end',
-        paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderColor: theme.colors.background,
-        paddingHorizontal: 25,
     },
 
     img: {
@@ -31,18 +23,18 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         paddingHorizontal: 25,
-        marginTop: 20,
+        marginTop: 10,
     },
     text: {
         fontFamily: theme.fonts.medium,
         fontSize: 14,
         color: theme.colors.background,
         width: '100%',
+        marginTop: 2
     },
     inputName: {
         width: 260,
         height: 40,
-        marginVertical: 10,
         backgroundColor: theme.colors.background,
         borderRadius: 4,
         paddingHorizontal: 15
@@ -50,7 +42,6 @@ export const styles = StyleSheet.create({
     inputDescription: {
         width: 260,
         height: 145,
-        marginVertical: 10,
         backgroundColor: theme.colors.background,
         borderRadius: 4,
         paddingHorizontal: 15,

@@ -1,8 +1,5 @@
-import { X } from "phosphor-react-native";
 import React from "react";
 import { View, Text, TextInput, Image } from "react-native";
-import { theme } from "../../theme";
-import { Button } from "../Button";
 
 
 import { styles } from './styles'
@@ -15,12 +12,6 @@ type Props = {
 export function RegisterCard( {getName, getDescription} : Props) {
     return (
         <View style={styles.container}>
-            <View style={styles.close}>
-                <X  
-                    size={32}
-                    color={theme.colors.first_color}
-                />
-            </View>
             <View style={styles.img}>
                 <Image 
                     source={require('../../assets/add.png')} 

@@ -21,7 +21,6 @@ export function Project() {
     return (
         <View style={styles.container}>
             <Header 
-                name="Leonardo"
                 buttonBack={true}
             />
             <View style={styles.containerCard}>
@@ -54,7 +53,7 @@ export function Project() {
                     <Button 
                         title="Concluir projeto"
                         color={theme.colors.second_color}
-                        functionCall={() => ''}
+                        functionCall={() => alert('Você concluiu está tarefa!')}
                     />
                 </View>
 

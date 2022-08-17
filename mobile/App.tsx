@@ -1,5 +1,4 @@
-
-import { Routes } from './src/routes';
+import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { useFonts, 
   Roboto_500Medium, 
@@ -9,7 +8,7 @@ import { useFonts,
   Roboto_300Light 
 } from '@expo-google-fonts/roboto';
 
-import React from 'react';
+import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
 
@@ -26,7 +25,7 @@ export default function App() {
   }
 
   return (
-    <Routes />
+    <AppRoutes />
   );
 }
 

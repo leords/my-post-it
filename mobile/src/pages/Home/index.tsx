@@ -27,19 +27,24 @@ export function Home() {
     //const registerFaker = null
     const registerFaker = [
     {
-        name: 'Deploy 1',
-        description: 'Estamos testando',
+        name: 'Projeto 01',
+        description: 'Estamos testando as telas e rotas e parametros.',
         status: false,
         handleOpenAction: ''
     },
     {
-        name: 'Deploy 2',
-        description: 'Verificando a cor',
+        name: 'Projeto 02',
+        description: 'Verificando a cor as cores conforme o status de projetos e tarefas',
         status: true,
+        handleOpenAction: ''
+    },
+    {
+        name: 'Projeto 03',
+        description: 'Verificando o flatlist e layout e ajustando tamanhos de components',
+        status: false,
         handleOpenAction: ''
     }
     ];
-
 
     function handleRegisterScreen(id : string, title: string) {
         navigation.navigate('register', {id, title})
@@ -52,14 +57,12 @@ export function Home() {
         <View style={styles.container}>
             <View style={{zIndex: 1}}>
                 <Header 
-                    name="Leonardo"
                     buttonBack={false}
                 />
             </View>
 
             <View style={styles.viewTitle}>
-                <Text style={styles.title}>Lista de</Text>
-                <Text style={styles.titleList}>Projetos</Text>
+                <Text style={styles.title}>Lista de Projetos</Text>
             </View>
             <FlatList
                 data={registerFaker}
@@ -78,6 +81,7 @@ export function Home() {
                     </TouchableOpacity>     
                 }
                 contentContainerStyle={{paddingBottom: 100}}
+                showsVerticalScrollIndicator={false}
                 ListEmptyComponent={() => (
                     <Empty/>
                 )}

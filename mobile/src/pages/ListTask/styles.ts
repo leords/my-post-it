@@ -33,10 +33,9 @@ export const styles = StyleSheet.create ({
         color: theme.colors.third_color
     },
     button: {
-        position: 'absolute',
-        bottom: 60,
         width: '80%',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: 20
     }
 })

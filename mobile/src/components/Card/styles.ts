@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
         color: theme.colors.background,
     },
     title: {
-        marginTop: 20,
+        marginTop: 10,
         fontFamily: theme.fonts.medium,
         color: theme.colors.background
     },
@@ -63,8 +63,8 @@ export const styles = StyleSheet.create({
     },
     status: {
         position: 'absolute',
-        bottom: 10,
-        right: 20,
+        bottom: 5,
+        right: 10,
         alignItems: 'flex-end',
         justifyContent: 'center',
         width: '100%',

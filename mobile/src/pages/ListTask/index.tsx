@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, FlatList, TouchableOpacity} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Card } from "../../components/Card";
 import { Empty } from "../../components/Empty";
 import { Button } from "../../components/Button";
-
 import { Header } from "../../components/Header";
 import { theme } from "../../theme";
 
 import { styles } from "./styles";
-import { api } from "../../services/api";
-
 
 type RouteParams = {
     id: string
 }
 
-type task = {
+/* type task = {
     id: string
     name: string
     description: string
@@ -24,21 +21,27 @@ type task = {
     date: Date
     project: string
     userLogged: string
-}
+} */
 
 export function ListTask() {
 
     //const registerFaker = null
     const registerFaker = [
         {
-            name: 'Tarefa 1',
-            description: 'Estamos testando',
+            name: 'Cores',
+            description: 'Verificar se as cores padrões do tema estão corretas',
             status: false,
             handleOpenAction: ''
         },
         {
-            name: 'Tarefa 2',
-            description: 'Verificando a cor',
+            name: 'Fontes',
+            description: 'Verificar se a importação das fontes estão corretas.',
+            status: true,
+            handleOpenAction: ''
+        },
+        {
+            name: 'Código',
+            description: 'Analisar o código para possiveis melhorias e reparações.',
             status: true,
             handleOpenAction: ''
         }
@@ -50,7 +53,6 @@ export function ListTask() {
     const { id } = route.params as RouteParams
 
 
-        
     function handleOpenTask(id: string, nameTask: string, nameProject: string) {
         navigation.navigate('task', {id, nameTask, nameProject})
     }
@@ -65,17 +67,10 @@ export function ListTask() {
         navigation.navigate('register', {id, title})
     }
     
-/*     useEffect(() => {
-        api.post('/project-all', { id: id } ).then(response => {
-            setTaskReturnList(response.data)
-        });
-    }) */
-
     return (
         <View style={styles.container}>
             <View style={{zIndex: 1}}>
                 <Header 
-                    name="Leonardo"
                     buttonBack={true}
                 />
             </View>
@@ -109,6 +104,7 @@ export function ListTask() {
                     </TouchableOpacity>     
                 }
                 contentContainerStyle={{paddingBottom: 100}}
+                showsVerticalScrollIndicator={false}
                 ListEmptyComponent={() => (
                     <Empty/>
                 )}

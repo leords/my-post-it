@@ -1,7 +1,7 @@
+import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { Trash } from "phosphor-react-native";
-import React from "react";
-import { View, Text, ColorPropType } from "react-native";
+import { View, Text} from "react-native";
 
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
@@ -23,7 +23,6 @@ export function Task() {
     return (
         <View style={styles.container}>
             <Header 
-                name="Leonardo"
                 buttonBack={true}
             />
             <View style={styles.containerCard}>

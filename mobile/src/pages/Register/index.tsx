@@ -21,13 +21,13 @@ export function Register() {
     const [description, setDescription] = useState<string>('');
 
     function handleNewRegister() {
-        
         if (name == '' && description == '') {
             alert('Favor preencha todos os campos!')
         }
         if (name != '' && description != '') {
             alert('Cadastrado!')
         }
+        //function...
     }
 
 
@@ -35,7 +35,6 @@ export function Register() {
         <View style={styles.container}>
 
             <Header 
-                name='Leonardo'
                 buttonBack={true}
             />
 

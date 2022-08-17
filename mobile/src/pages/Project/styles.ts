@@ -8,11 +8,11 @@ export const styles = StyleSheet.create({
     },
     containerCard: {
         width: 315,
-        height: 500,
+        height: 480,
         alignItems: 'center',
         backgroundColor: theme.colors.first_color,
         borderRadius: 10,
-        marginTop: 85, 
+        marginTop: 25, 
         paddingHorizontal: 32
     },
     titleProject: {
@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
         borderRadius: 4
     },
     description: {
-        fontFamily: theme.fonts.light,
-        fontSize: 13,
+        fontFamily: theme.fonts.medium,
+        fontSize: 15,
         color: theme.colors.first_color
     },
     titleTasks: {
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 50
+        marginBottom: 35
     },
     viewOpen:{
         alignItems: 'center',

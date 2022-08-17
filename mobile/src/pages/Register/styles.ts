@@ -10,12 +10,12 @@ export const styles = StyleSheet.create({
     },
     viewTitle: {
         width: '100%',
-        paddingVertical: 22,
+        paddingVertical: 15,
         paddingHorizontal: 45
     },
     title: {
         fontFamily: theme.fonts.medium,
-        fontSize: 16,
+        fontSize: 15,
         color: theme.colors.third_color
     },
     titleList: {
@@ -25,8 +25,9 @@ export const styles = StyleSheet.create({
     },
 
     button: {
+        position: 'absolute',
         width: 315,
-        marginTop: 15
+        bottom: 25
     }
 
 })

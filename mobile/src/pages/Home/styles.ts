@@ -12,24 +12,18 @@ export const styles = StyleSheet.create ({
     },
     viewTitle: {
         width: '100%',
-        paddingVertical: 22,
+        paddingVertical: 15,
         paddingHorizontal: 45
     },
     title: {
         fontFamily: theme.fonts.medium,
-        fontSize: 16,
-        color: theme.colors.third_color
-    },
-    titleList: {
-        fontFamily: theme.fonts.medium,
-        fontSize: 24,
+        fontSize: 18,
         color: theme.colors.third_color
     },
     button: {
-        position: 'absolute',
-        bottom: 60,
         width: '80%',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: 20
     }
 })

@@ -1,23 +1,36 @@
-
 import { useNavigation } from "@react-navigation/native";
-import { ArrowSquareDown, CaretLeft, SignOut, UserCircle } from "phosphor-react-native";
-import React, { useState } from "react";
+import {CaretLeft, SignOut, UserCircle } from "phosphor-react-native";
+import React, { useContext, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { AuthContext } from "../../context/authContext";
 import { theme } from "../../theme";
 
 import { styles } from './styles'
 
 interface Props {
-    name: string
     buttonBack: boolean
 }
 
-export function Header({name, buttonBack} : Props) {
+interface User {
+    user: {
+        email: string,
+        id: string,
+        name: string
+    }
+}
+
+export function Header({buttonBack} : Props) {
 
     const navigation = useNavigation()
+    const {signOut} = useContext(AuthContext)
+    //const nameUser: User = Object.create(user) 
 
     function handleGoBack() {
         navigation.goBack()
+    }   
+
+    function handleLogOff() {
+        signOut()
     }
 
     return (
@@ -45,9 +58,9 @@ export function Header({name, buttonBack} : Props) {
                         weight="light" 
                         color={theme.colors.background} 
                     />
-                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.name}>Usuario</Text>
                     <TouchableOpacity
-                        onPress={() => alert('Este botão terá a função de deslogar')}
+                        onPress={handleLogOff}
                     >
                         <SignOut 
                             size={30} 

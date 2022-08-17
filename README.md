@@ -6,7 +6,8 @@
 
 <p align="center">
   <img alt="Foto da capa do projeto" src="./web/src/assets/img/img-post-it.PNG" width="100%">
-   <img alt="Foto da capa do projeto" src="./web/src/assets/img/img2-post-it.PNG" width="100%">
+  <img alt="Foto da capa do projeto" src="./web/src/assets/img/img2-post-it.PNG" width="100%">
+  <img alt="Foto da capa do projeto mobile" src="./web/src/assets/img/img3-post-it.PNG" width="100%">
 </p>
 
 ## 🚀 Tecnologias
